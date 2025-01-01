@@ -17,6 +17,8 @@ public class Master {
     private ArrayList<Session> listSession;
     private ControleurPrincipal controleurPrincipal;
     private Partie partie; // Reference to the game (Partie)
+    
+    //test2
 
     public Master() {
         Calendar date = Calendar.getInstance();
