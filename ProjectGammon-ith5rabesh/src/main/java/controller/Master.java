@@ -19,6 +19,7 @@ public class Master {
     private Partie partie; // Reference to the game (Partie)
     
     //test2
+    //testtt3
 
     public Master() {
         Calendar date = Calendar.getInstance();
