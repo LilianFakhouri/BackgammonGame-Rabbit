@@ -1,4 +1,15 @@
+<<<<<<< Updated upstream
 /META-INF/
 /controller/
+<<<<<<< HEAD
+=======
+/controller/
+/exceptions/
+/images/
+/models/
 /GUI/
-/Views/
+/META-INF/
+>>>>>>> Stashed changes
+=======
+/GUI/
+>>>>>>> 2013229d533fb6357c72faa941caf6e2ff256f22
