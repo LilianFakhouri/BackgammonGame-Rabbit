@@ -1,2 +1,11 @@
+<<<<<<< Updated upstream
 /META-INF/
 /controller/
+=======
+/controller/
+/exceptions/
+/images/
+/models/
+/GUI/
+/META-INF/
+>>>>>>> Stashed changes
