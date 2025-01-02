@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 
 public enum Avatar{
+	//aiham
 	DEFAULT("default.png"),
 	RENARD("asleep_renard.png"),
 	CHOUETTE("chouette.png"),
