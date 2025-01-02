@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -71,6 +72,7 @@ public class VueMenu extends MonochromeVue {
 
         boutonQuestionsManagement = new MonochromeButton("Questions Management");
         conteneurbouton.add(boutonQuestionsManagement); // Add the new button
+        
 
         boutonQuitter = new MonochromeButton("Quit");
         conteneurbouton.add(boutonQuitter);
@@ -79,15 +81,19 @@ public class VueMenu extends MonochromeVue {
         conteneurgrid.add(conteneurbouton);
 
         // Add ActionListener for Questions Management
+        
         boutonQuestionsManagement.addActionListener(e -> openQuestionManagementScreen());
-    }
 
+    }
     private void openQuestionManagementScreen() {
         System.out.println("Opening Question Management Screen...");
-        SwingUtilities.invokeLater(() -> {
-            QuestionManagementScreen screen = new QuestionManagementScreen();
-            screen.setVisible(true);
-        });
+
+        // Create and show a new frame for QuestionManagementScreen
+        JFrame questionFrame = new JFrame("Questions Management");
+        questionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this frame
+        questionFrame.setSize(800, 600); // Set the size of the new frame
+        questionFrame.setContentPane(new QuestionManagementScreen()); // Add the QuestionManagementScreen
+        questionFrame.setVisible(true); // Make the frame visible
     }
 
     @Override
