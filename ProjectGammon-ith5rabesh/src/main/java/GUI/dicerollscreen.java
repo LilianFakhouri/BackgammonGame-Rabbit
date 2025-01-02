@@ -137,42 +137,70 @@ public class dicerollscreen extends JFrame {
             return diceValue;
         }
 
+        
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g.create();
 
-            // Anti-aliasing for smoother graphics
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            // Draw dice background (square)
             g2.setColor(Color.WHITE);
             g2.fill(new Rectangle2D.Double(10, 10, getWidth() - 20, getHeight() - 20));
 
-            // Draw dice border
             g2.setColor(Color.BLACK);
             g2.setStroke(new BasicStroke(2.0f));
             g2.draw(new Rectangle2D.Double(10, 10, getWidth() - 20, getHeight() - 20));
 
-            // Draw dots based on dice value
             g2.setColor(Color.BLACK);
-            int[][] dotPositions = {
-                    {},
-                    {50, 50},
-                    {30, 30, 70, 70},
-                    {30, 30, 50, 50, 70, 70},
-                    {30, 30, 30, 70, 70, 30, 70, 70},
-                    {30, 30, 30, 70, 50, 50, 70, 30, 70, 70}
-            };
 
-            int[] dots = dotPositions[diceValue - 1];
-            for (int i = 0; i < dots.length; i += 2) {
-                g2.fillOval(dots[i], dots[i + 1], 10, 10);
+            // Using a switch statement for dice rendering
+            switch (diceValue) {
+                case 1:
+                    drawDot(g2, getWidth() / 2, getHeight() / 2);
+                    break;
+                case 2:
+                    drawDot(g2, getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, 3 * getHeight() / 4);
+                    break;
+                case 3:
+                    drawDot(g2, getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, getWidth() / 2, getHeight() / 2);
+                    drawDot(g2, 3 * getWidth() / 4, 3 * getHeight() / 4);
+                    break;
+                case 4:
+                    drawDot(g2, getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, getWidth() / 4, 3 * getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, 3 * getHeight() / 4);
+                    break;
+                case 5:
+                    drawDot(g2, getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, getWidth() / 2, getHeight() / 2);
+                    drawDot(g2, getWidth() / 4, 3 * getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, 3 * getHeight() / 4);
+                    break;
+                case 6:
+                    drawDot(g2, getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, getHeight() / 4);
+                    drawDot(g2, getWidth() / 4, getHeight() / 2);
+                    drawDot(g2, 3 * getWidth() / 4, getHeight() / 2);
+                    drawDot(g2, getWidth() / 4, 3 * getHeight() / 4);
+                    drawDot(g2, 3 * getWidth() / 4, 3 * getHeight() / 4);
+                    break;
+                default:
+                    System.err.println("Invalid dice value: " + diceValue);
             }
 
             g2.dispose();
         }
-    }
+            
+            private void drawDot(Graphics2D g2, int x, int y) {
+                g2.fillOval(x - 5, y - 5, 10, 10);
+            }
+        
+        }
+
 
     private static class BackgroundPanel extends JPanel {
         private static final long serialVersionUID = 1L;
