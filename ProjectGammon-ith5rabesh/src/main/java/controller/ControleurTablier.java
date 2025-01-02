@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import exceptions.TourNonJouableException;
 import GUI.CaseButton;
+import GUI.QuestionAnswerScreen;
 import GUI.QuestionStationBarr;
 import GUI.TriangleCaseButton;
 import models.Case;
@@ -55,108 +56,99 @@ public class ControleurTablier implements Controller{
 		
 	}
 	
-	private void ListenerCaseButton()
-	{
-		Collection<CaseButton> lCase = vueTablier.getCasesButtons();
-		for (CaseButton caseButton : lCase) {
-			caseButton.addMouseListener(new MouseListener() {
+	private void ListenerCaseButton() {
+	    Collection<CaseButton> lCase = vueTablier.getCasesButtons();
+	    for (CaseButton caseButton : lCase) {
+	        caseButton.addMouseListener(new MouseListener() {
 
-				@Override
-				public void mouseClicked(MouseEvent e) {}
+	            @Override
+	            public void mouseClicked(MouseEvent e) {}
 
-				@Override
-				public void mouseEntered(MouseEvent e) {}
-				@Override
-				public void mouseExited(MouseEvent e) {}
-				@Override
-				public void mousePressed(MouseEvent e) {}
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				    CaseButton caseButton = (CaseButton) e.getSource();
-				    if (!partie.isTourFini() && !partie.isPartieFini()) {
-				        if (vueTablier.getCandidat() == null 
-				                && partie.getJoueurEnCour() == caseButton.getCase().getCouleurDame()) {
-				            if (caseButton.getCase().getNbDame() != 0 
-				                    && (!tablier.isDameDansCaseBarre(partie.getJoueurEnCour()) 
-				                        || caseButton.getCase().isCaseBarre())
-				                    && caseButton.getCase().getCouleurDame() == partie.getJoueurEnCour()) {
-				                vueTablier.setCandidat(caseButton);
-				                if (partie.getParametreJeu().getJoueur(partie.getJoueurEnCour()).getNiveauAssistant() == NiveauAssistant.SIMPLE
-				                        || partie.getParametreJeu().getJoueur(partie.getJoueurEnCour()).getNiveauAssistant() == NiveauAssistant.COMPLET) {
-				                    vueTablier.setPossibles(partie.getCoupsPossibles(caseButton.getCase()));
-				                }
-				            } else if (tablier.isDameDansCaseBarre(partie.getJoueurEnCour())) {
-				                vuePartie.afficherFenetreDemande("Attention!", "Sortez les dames battues avant de jouer.");
-				            }
-				        } else if (vueTablier.getCandidat() != null) {
-				            if (partie.jouerCoup(vueTablier.getCandidat().getCase(), caseButton.getCase())) {
-				                vueTablier.uncandidateAll();
-				                vueTablier.setPossibles((new ArrayList<>()));
-				                
-				                if (caseButton.hasQuestionStation()) {
-				                    System.out.println("Player has landed on a Question Station!");
+	            @Override
+	            public void mouseEntered(MouseEvent e) {}
 
-				                    // Retrieve the question from the question station
-				                    QuestionStationBarr questionStation = (QuestionStationBarr) caseButton.getComponent(0);
-				                    String question = questionStation.getQuestion();
+	            @Override
+	            public void mouseExited(MouseEvent e) {}
 
-				                    // Show the question in the popup
-				                    vuePartie.afficherFenetreDemande("Question Station", "Welcome to the Question Station!\nQuestion: " + question);
-				                } else {
-				                    System.out.println("No Question Station here.");
-				                }
+	            @Override
+	            public void mousePressed(MouseEvent e) {}
 
+	            @Override
+	            public void mouseReleased(MouseEvent e) {
+	                CaseButton caseButton = (CaseButton) e.getSource();
+	                if (!partie.isTourFini() && !partie.isPartieFini()) {
+	                    if (vueTablier.getCandidat() == null 
+	                            && partie.getJoueurEnCour() == caseButton.getCase().getCouleurDame()) {
+	                        if (caseButton.getCase().getNbDame() != 0 
+	                                && (!tablier.isDameDansCaseBarre(partie.getJoueurEnCour()) 
+	                                    || caseButton.getCase().isCaseBarre())
+	                                && caseButton.getCase().getCouleurDame() == partie.getJoueurEnCour()) {
+	                            vueTablier.setCandidat(caseButton);
+	                            if (partie.getParametreJeu().getJoueur(partie.getJoueurEnCour()).getNiveauAssistant() == NiveauAssistant.SIMPLE
+	                                    || partie.getParametreJeu().getJoueur(partie.getJoueurEnCour()).getNiveauAssistant() == NiveauAssistant.COMPLET) {
+	                                vueTablier.setPossibles(partie.getCoupsPossibles(caseButton.getCase()));
+	                            }
+	                        } else if (tablier.isDameDansCaseBarre(partie.getJoueurEnCour())) {
+	                            vuePartie.afficherFenetreDemande("Attention!", "Sortez les dames battues avant de jouer.");
+	                        }
+	                    } else if (vueTablier.getCandidat() != null) {
+	                        if (partie.jouerCoup(vueTablier.getCandidat().getCase(), caseButton.getCase())) {
+	                            vueTablier.uncandidateAll();
+	                            vueTablier.setPossibles((new ArrayList<>()));
 
+	                            // Check if the player has landed on a Question Station
+	                            if (caseButton.hasQuestionStation()) {
+	                                System.out.println("Player has landed on a Question Station!");
 
+	                                // Retrieve the question from the question station
+	                                QuestionStationBarr questionStation = (QuestionStationBarr) caseButton.getComponent(0);
+	                                String question = questionStation.getQuestion();
 
+	                                // Open the QuestionAnswerScreen (you can replace this part with your actual logic)
+	                                QuestionAnswerScreen questionAnswerScreen = new QuestionAnswerScreen();
+	                                questionAnswerScreen.setVisible(true); // Make it visible
 
-				                // Check if the player landed on a surprise station
-				                if (caseButton.hasSurpriseStation()) {
-				                    // Display a message for the surprise station
-				                    vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station! Roll the dice again.");
-				                    
-				                    // Remove the surprise station
-				                    vueTablier.clearSurpriseStation(caseButton);
+	                                // Optionally, you can use a pop-up to show the question too:
+	                                vuePartie.afficherFenetreDemande("Question Station", "Welcome to the Question Station!\nQuestion: " + question);
+	                            } else {
+	                                System.out.println("No Question Station here.");
+	                            }
 
-				                    // Allow the player to roll the dice again
-				                    partie.lancerDes();
-				                    //vueTablier.updateDes(); // Update the dice display
+	                            // Check if the player landed on a surprise station
+	                            if (caseButton.hasSurpriseStation()) {
+	                                vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station!");
+	                                vueTablier.clearSurpriseStation(caseButton);
+	                                partie.lancerDes();
+	                                return; // Exit early for surprise station handling
+	                            }
 
-				                    // Prevent the turn from ending (skip changing turns)
-				                    return; // Exit early to let the player roll again
-				                }
- else {
-				                    if (partie.isPartieFini()) {
-				                        controleurPartie.finPartie();
-				                    }
-				                    if (partie.siDesUtilises()) {
-				                        changerTour();
-				                    } else if (!partie.hasCoupPossible()) {
-				                        changerTour();
-				                        partie.lancerDes();
-				                        if (!partie.hasCoupPossible()) {
-				                            vuePartie.afficherFenetreDemande("No possible coup", "");
-				                            changerTour();
-				                        }
-				                    }
-				                }
-				            } else {
-				                vueTablier.uncandidateAll();
-				                vueTablier.setPossibles((new ArrayList<>()));
-				            }
-				        }
-				    }
+	                            // If no special station, proceed with the game logic
+	                            if (partie.isPartieFini()) {
+	                                controleurPartie.finPartie();
+	                            }
+	                            if (partie.siDesUtilises()) {
+	                                changerTour();
+	                            } else if (!partie.hasCoupPossible()) {
+	                                changerTour();
+	                                partie.lancerDes();
+	                                if (!partie.hasCoupPossible()) {
+	                                    vuePartie.afficherFenetreDemande("No possible coup", "");
+	                                    changerTour();
+	                                }
+	                            }
+	                        } else {
+	                            vueTablier.uncandidateAll();
+	                            vueTablier.setPossibles((new ArrayList<>()));
+	                        }
+	                    }
+	                }
 
-				    vueTablier.updateUI();
-				    vueTablier.updateDes();
-				}
-
-
-			});
-			
-		}
+	                vueTablier.updateUI();
+	                vueTablier.updateDes();
+	            }
+	        });
+	    }
 	}
-	
 	
 	/*public void nouvellePartie(Partie partie)
 	{
