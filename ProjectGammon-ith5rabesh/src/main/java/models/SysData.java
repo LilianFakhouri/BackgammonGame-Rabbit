@@ -119,6 +119,7 @@ public class SysData implements Serializable {
 
     public void addQuestion(Question question) {
         allQuestions.add(question);
+        JOptionPane.showMessageDialog(this, "Question Added Successfully!");
         writeQuestionsToFile("questions.json");
     }
 
@@ -130,6 +131,7 @@ public class SysData implements Serializable {
     public void updateQuestion(Question oldQuestion, Question updatedQuestion) {
         allQuestions.remove(oldQuestion);
         allQuestions.add(updatedQuestion);
+        JOptionPane.showMessageDialog(this, "Question Updated Successfully!");
         writeQuestionsToFile("questions.json");
     }
 

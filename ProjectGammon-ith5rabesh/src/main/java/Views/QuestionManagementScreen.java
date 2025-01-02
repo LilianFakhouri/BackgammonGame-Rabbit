@@ -133,7 +133,6 @@ public class QuestionManagementScreen extends JPanel {
     private void addQuestion() {
         QuestionForm dialog = new QuestionForm(null, null);
         dialog.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Question Added Successfully!");
         refreshQuestions();
     }
 
@@ -146,7 +145,6 @@ public class QuestionManagementScreen extends JPanel {
         Question currentQuestion = questions.get(currentIndex);
         QuestionForm dialog = new QuestionForm(null, currentQuestion);
         dialog.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Question Updated Successfully!");
         refreshQuestions();
     }
 
