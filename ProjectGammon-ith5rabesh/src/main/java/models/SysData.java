@@ -110,6 +110,7 @@ public class SysData implements Serializable {
         try (FileWriter writer = new FileWriter(path)) {
             writer.write(jsonObject.toJSONString());
             System.out.println("Questions saved successfully to: " + path);
+            JOptionPane.showMessageDialog(this, "Question Added Successfully!");
         } catch (IOException e) {
             e.printStackTrace();
         }
