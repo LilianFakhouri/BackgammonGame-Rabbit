@@ -146,6 +146,7 @@ public class QuestionManagementScreen extends JPanel {
         Question currentQuestion = questions.get(currentIndex);
         QuestionForm dialog = new QuestionForm(null, currentQuestion);
         dialog.setVisible(true);
+        JOptionPane.showMessageDialog(this, "Question Updated Successfully!");
         refreshQuestions();
     }
 
