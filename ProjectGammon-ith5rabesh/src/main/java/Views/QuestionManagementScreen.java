@@ -133,7 +133,6 @@ public class QuestionManagementScreen extends JPanel {
     private void addQuestion() {
         QuestionForm dialog = new QuestionForm(null, null);
         dialog.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Question Added Successfully!");
         refreshQuestions();
     }
 
