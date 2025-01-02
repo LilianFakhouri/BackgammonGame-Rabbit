@@ -15,6 +15,8 @@ public class QuestionManagementScreen extends JPanel {
     private JLabel correctAnswerLabel;
     private int currentIndex = 0; // Current question index
     private List<Question> questions;
+    private VueMenu vueMenu; // Reference to the original VueMenu
+
 
     public QuestionManagementScreen() {
         build();
@@ -88,6 +90,11 @@ public class QuestionManagementScreen extends JPanel {
         editButton.addActionListener(e -> editQuestion());
         deleteButton.addActionListener(e -> deleteQuestion());
 
+        JButton returnButton = new JButton("Return to Menu");
+        returnButton.setBounds(10, 10, 150, 30); // Adjust position and size
+        returnButton.addActionListener(e -> switchToMenu());
+        add(returnButton);
+        
         // Initialize the first question display
         updateQuestionDisplay();
     }
@@ -115,6 +122,33 @@ public class QuestionManagementScreen extends JPanel {
         );
         correctAnswerLabel.setText("Correct Answer: " + currentQuestion.getCorrectAnswerNumber());
     }
+    public QuestionManagementScreen(VueMenu vueMenu) {
+        this.vueMenu = vueMenu; // Store the reference
+        build();
+    }
+    private void switchToMenu() {
+        System.out.println("Returning to VueMenu...");
+
+        // Get the parent JFrame
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (parentFrame != null) {
+            // Clear the current content
+            parentFrame.getContentPane().removeAll();
+
+            // Add a new VueMenu as the content
+            parentFrame.setContentPane(new VueMenu());
+
+            // Revalidate and repaint to refresh the frame
+            parentFrame.revalidate();
+            parentFrame.repaint();
+
+            System.out.println("Switched back to VueMenu.");
+        } else {
+            System.err.println("Parent frame not found!");
+        }
+    }
+
+
 
     private void showNextQuestion() {
         if (!questions.isEmpty()) {
@@ -122,7 +156,7 @@ public class QuestionManagementScreen extends JPanel {
             updateQuestionDisplay();
         }
     }
-
+  
     private void showPreviousQuestion() {
         if (!questions.isEmpty()) {
             currentIndex = (currentIndex - 1 + questions.size()) % questions.size(); // Loop back to the end
