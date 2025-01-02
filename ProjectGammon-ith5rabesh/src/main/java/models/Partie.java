@@ -90,6 +90,7 @@ public class Partie {
 		//ces variables permet de connaitre l'état de la partie
 		tourFini=true;
 		partieFini = false;
+		
 	}
 	/**
 	 * 

@@ -90,11 +90,12 @@ public class TriangleCaseButton extends CaseButton{
 	
 	public void addQuestionStation(String question) {
 	    QuestionStationBarr questionStation = new QuestionStationBarr(question);
-	    questionStation.setBounds(5, 5, 40, 40); // Position and size of the question station
+	    questionStation.setBounds(5, 5, 40, 40); // Adjust these values for better positioning
 	    this.add(questionStation);
 	    this.hasQuestionStation = true; // Update the state
 	    repaint();
 	}
+
 
 	
 	
@@ -295,7 +296,7 @@ public class TriangleCaseButton extends CaseButton{
 	public boolean hasQuestionStation() {
 	    for (int i = 0; i < getComponentCount(); i++) {
 	        if (getComponent(i) instanceof QuestionStationBarr) {
-	            QuestionStationBarr questionStation = (QuestionStationBarr) getComponent(i);
+	            return true;
 	        }
 	    }
 	    return false;
