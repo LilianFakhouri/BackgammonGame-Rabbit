@@ -79,6 +79,8 @@ public class VueMenu extends MonochromeVue {
 
         add(conteneurgrid);
         conteneurgrid.add(conteneurbouton);
+        
+        
 
         // Add ActionListener for Questions Management
         
@@ -86,15 +88,28 @@ public class VueMenu extends MonochromeVue {
 
     }
     private void openQuestionManagementScreen() {
-        System.out.println("Opening Question Management Screen...");
+        System.out.println("Switching to Question Management Screen...");
 
-        // Create and show a new frame for QuestionManagementScreen
-        JFrame questionFrame = new JFrame("Questions Management");
-        questionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Close only this frame
-        questionFrame.setSize(800, 600); // Set the size of the new frame
-        questionFrame.setContentPane(new QuestionManagementScreen()); // Add the QuestionManagementScreen
-        questionFrame.setVisible(true); // Make the frame visible
+        // Get the parent JFrame
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (parentFrame != null) {
+            // Clear the current content
+            parentFrame.getContentPane().removeAll();
+
+            // Add QuestionManagementScreen as the new content
+            parentFrame.setContentPane(new QuestionManagementScreen());
+
+            // Revalidate and repaint to refresh the frame
+            parentFrame.revalidate();
+            parentFrame.repaint();
+
+            System.out.println("Successfully switched to Question Management Screen.");
+        } else {
+            System.err.println("Parent frame not found!");
+        }
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
