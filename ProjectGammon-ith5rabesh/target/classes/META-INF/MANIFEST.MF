@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Lenovo
 <<<<<<< Updated upstream
 =======
@@ -6,6 +7,9 @@ Built-By: user
 >>>>>>> 60ae8fc40dbd1a678dccb7b98bde4924aff0beda
 =======
 >>>>>>> Stashed changes
+=======
+Built-By: USER1
+>>>>>>> 3fad34faa8aeaa7492d5ecae3c0efa1a472a21dc
 Build-Jdk: 17.0.4.1
 Created-By: Maven Integration for Eclipse
 

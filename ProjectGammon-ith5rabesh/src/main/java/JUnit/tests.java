@@ -51,11 +51,8 @@ public class tests {
 	    }
 
 	    // Test for removing a question from the JSON file
-<<<<<<< HEAD
-//	 @Test
-=======
-	    @Test
->>>>>>> 60ae8fc40dbd1a678dccb7b98bde4924aff0beda
+
+	 @Test
 	    public void testRemovingQuestion() throws IOException, ParseException {
 	        // Create a question identical to one in the JSON file
 	        String content = "What is the purpose of design patterns in software engineering?";
