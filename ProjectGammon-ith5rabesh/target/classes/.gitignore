@@ -1,8 +1,10 @@
 /controller/
+/GUI/
+/Utils/
 /exceptions/
 /images/
 /models/
-/META-INF/
-/GUI/
-/Views/
 /questions.json
+/Views/
+/META-INF/
+/JUnit/
