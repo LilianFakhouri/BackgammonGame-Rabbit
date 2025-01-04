@@ -19,11 +19,10 @@ import Utils.Level;
 
 public class tests {
 	
-	
+
 	//This test checks if the load is correct.
 	 @Test
 	    public void testload() throws IOException, ParseException {
-
 		 
 	        SysData.getInstance().loadQuestions();
 	        System.out.print(SysData.getInstance().getAllQuestions());
@@ -52,7 +51,11 @@ public class tests {
 	    }
 
 	    // Test for removing a question from the JSON file
+<<<<<<< HEAD
+//	 @Test
+=======
 	    @Test
+>>>>>>> 60ae8fc40dbd1a678dccb7b98bde4924aff0beda
 	    public void testRemovingQuestion() throws IOException, ParseException {
 	        // Create a question identical to one in the JSON file
 	        String content = "What is the purpose of design patterns in software engineering?";
@@ -73,7 +76,6 @@ public class tests {
 	                    SysData.getInstance().getAllQuestions().contains(tryQuestion));
 	    }
 
-	    // Test to check if all questions in the JSON file have exactly 4 answers
 	    @Test
 	    public void answersNumOfQuestionsTest() {
 	        for (Question q : SysData.getInstance().getAllQuestions()) {
