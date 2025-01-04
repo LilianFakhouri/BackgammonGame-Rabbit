@@ -1,20 +1,11 @@
-<<<<<<< Updated upstream
-/META-INF/
-/controller/
-<<<<<<< HEAD
-=======
 /controller/
 /exceptions/
 /images/
 /models/
+/META-INF/
 /GUI/
 <<<<<<< HEAD
+=======
 /Views/
-/models/
-=======
-/META-INF/
->>>>>>> Stashed changes
-=======
-/GUI/
->>>>>>> 2013229d533fb6357c72faa941caf6e2ff256f22
->>>>>>> 18dc361902082e5e6590edbc311585a655199f46
+/questions.json
+>>>>>>> 7cea72a314f4a925e47df2ff3a74daaa5ed86901
