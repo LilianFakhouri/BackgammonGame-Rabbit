@@ -1,9 +1,8 @@
 package controller;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import org.omg.CORBA.portable.InputStream;
 
 import GUI.dicerollscreen;
 import Views.VuePartie;
@@ -20,10 +19,6 @@ public class Master {
     private ControleurPrincipal controleurPrincipal;
     private Partie partie; // Reference to the game (Partie)
     
-    //test2
-    //testtt3
-    //ttt
-
     public Master() {
         Calendar date = Calendar.getInstance();
         idSession = 10000 * date.get(Calendar.MONTH)
@@ -37,14 +32,18 @@ public class Master {
 
     public static void main(String[] args) {
         master = new Master(); // Create the Master instance
-        InputStream inputStream = (InputStream) SysData.class.getClassLoader().getResourceAsStream("questions.json");
+
+        // Use java.io.InputStream to read the resource
+        InputStream inputStream = SysData.class.getClassLoader().getResourceAsStream("questions.json");
         if (inputStream == null) {
             System.err.println("Error: questions.json not found.");
             return;
         }
 
+        // Load questions using SysData
         SysData.getInstance().loadQuestionsFromInputStream(inputStream);
-        master.startGame();    // Start the game
+
+        master.startGame(); // Start the game
     }
 
     public void startGame() {
@@ -53,14 +52,9 @@ public class Master {
 
         // Create and start the game
         partie = new Partie(parametreJeu);
-//        partie.lancerPremierePartie(); // Determine who starts the game
-
-        // Now open the dice roll screen
-//        new dicerollscreen();  // This will show the dice roll screen after the start button is clicked.
 
         System.out.println("Game setup is complete!");
     }
-
 
     public void launchSession(ParametreJeu parametreJeu) {
         if (isSessionLaunchable()) {
