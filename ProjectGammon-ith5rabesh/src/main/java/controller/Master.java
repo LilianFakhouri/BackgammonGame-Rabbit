@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.omg.CORBA.portable.InputStream;
+
 import GUI.dicerollscreen;
 import Views.VuePartie;
 import models.GestionDeSession;
@@ -35,7 +37,13 @@ public class Master {
 
     public static void main(String[] args) {
         master = new Master(); // Create the Master instance
-        SysData.getInstance().loadQuestions("questions.json");
+        InputStream inputStream = (InputStream) SysData.class.getClassLoader().getResourceAsStream("questions.json");
+        if (inputStream == null) {
+            System.err.println("Error: questions.json not found.");
+            return;
+        }
+
+        SysData.getInstance().loadQuestionsFromInputStream(inputStream);
         master.startGame();    // Start the game
     }
 

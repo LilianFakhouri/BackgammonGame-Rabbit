@@ -2,23 +2,20 @@ package models;
 
 import java.io.*;
 import java.util.*;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import Utils.Level;
 
 public class SysData implements Serializable {
-    private HashSet<Question> allQuestions = new HashSet<>();
-
     private static final long serialVersionUID = 1L;
-
+    private static final String QUESTIONS_FILE = "questions.json";
+    private HashSet<Question> allQuestions = new HashSet<>();
     private static SysData sys = null;
 
     private SysData() {
-        loadQuestions("questions.json");
+        loadQuestions();
     }
 
     public static SysData getInstance() {
@@ -28,9 +25,13 @@ public class SysData implements Serializable {
         return sys;
     }
 
-    public void loadQuestions(String path) {
+    public void loadQuestions() {
         allQuestions.clear();
-        try (FileReader reader = new FileReader(new File(path))) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(QUESTIONS_FILE)) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Resource not found: " + QUESTIONS_FILE);
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
             JSONArray questionsArray = (JSONArray) jsonObject.get("questions");
 
@@ -60,17 +61,16 @@ public class SysData implements Serializable {
                         throw new IllegalArgumentException("Unknown difficulty level: " + difficulty);
                 }
 
-
                 Question question = new Question(content, level, answer1, answer2, answer3, answer4, correctAnswer);
                 allQuestions.add(question);
             }
-            System.out.println("Questions loaded successfully from: " + path);
+            System.out.println("Questions loaded successfully.");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void writeQuestionsToFile(String path) {
+    public void writeQuestionsToFile(String outputPath) {
         JSONArray questionsArray = new JSONArray();
 
         for (Question question : allQuestions) {
@@ -107,15 +107,13 @@ public class SysData implements Serializable {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("questions", questionsArray);
 
-        try (FileWriter writer = new FileWriter(path)) {
+        try (FileWriter writer = new FileWriter(outputPath)) {
             writer.write(jsonObject.toJSONString());
-            System.out.println("Questions saved successfully to: " + path);
+            System.out.println("Questions saved successfully to: " + outputPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
     public void addQuestion(Question question) {
         allQuestions.add(question);
@@ -136,4 +134,45 @@ public class SysData implements Serializable {
     public HashSet<Question> getAllQuestions() {
         return allQuestions;
     }
+    public void loadQuestionsFromInputStream(InputStream inputStream) {
+        allQuestions.clear();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+            JSONArray questionsArray = (JSONArray) jsonObject.get("questions");
+
+            for (Object obj : questionsArray) {
+                JSONObject questionObj = (JSONObject) obj;
+                String content = (String) questionObj.get("question");
+                JSONArray answers = (JSONArray) questionObj.get("answers");
+                String answer1 = (String) answers.get(0);
+                String answer2 = (String) answers.get(1);
+                String answer3 = (String) answers.get(2);
+                String answer4 = (String) answers.get(3);
+                int correctAnswer = Integer.parseInt((String) questionObj.get("correct_ans"));
+
+                String difficulty = (String) questionObj.get("difficulty");
+                Level level;
+                switch (difficulty) {
+                    case "1":
+                        level = Level.Easy;
+                        break;
+                    case "2":
+                        level = Level.Medium;
+                        break;
+                    case "3":
+                        level = Level.Hard;
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown difficulty level: " + difficulty);
+                }
+
+                Question question = new Question(content, level, answer1, answer2, answer3, answer4, correctAnswer);
+                allQuestions.add(question);
+            }
+            System.out.println("Questions loaded successfully from resource stream.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

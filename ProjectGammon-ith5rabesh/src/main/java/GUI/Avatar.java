@@ -28,10 +28,11 @@ public enum Avatar{
 	private final String path;
 	private final ImageIcon icon;
 	
-	Avatar(String path){
-		this.path = ImageAvatar.AVATAR_PATH + path;
-		this.icon = new ImageIcon(this.path);
-	}
+    Avatar(String fileName) {
+        this.path = "/images/avatars/" + fileName; // Assuming images are in a folder named "avatars"
+        this.icon = new ImageIcon(Avatar.class.getResource(this.path)); // Use getResource
+    }
+
 
 	public ImageIcon getIcon() {
 		return icon;
