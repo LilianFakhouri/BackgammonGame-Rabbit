@@ -32,7 +32,17 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/USER1/Downloads/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/USER1/Downloads/junit-4.13.2.jar"/>
+=======
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="C:/Users/Lenovo/Downloads/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenovo/Downloads/junit-4.13.2.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/user/Downloads/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Downloads/junit-4.13.2.jar"/>
+>>>>>>> 167272fe5a2196f93aeb77a61bd84ac10d1231ed
+>>>>>>> 07730dfea09b4deb8170890948737c8b14d52c87
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
