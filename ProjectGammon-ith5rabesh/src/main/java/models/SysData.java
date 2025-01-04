@@ -5,7 +5,6 @@ import java.util.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import Utils.Level;
 
 public class SysData implements Serializable {
@@ -115,9 +114,25 @@ public class SysData implements Serializable {
         }
     }
 
+
+    
     public void addQuestion(Question question) {
+        if (question.getQuestionContent() == null || question.getQuestionContent().trim().isEmpty()) {
+            throw new IllegalArgumentException("Question content cannot be empty.");
+        }
+
+        String[] answers = question.getAnswers();
+        for (String answer : answers) {
+            if (answer == null || answer.trim().isEmpty()) {
+                throw new IllegalArgumentException("All answer options must be provided.");
+            }
+        }
+
+       
+
+        // If all validations pass, add the question
         allQuestions.add(question);
-        writeQuestionsToFile("questions.json");
+        writeQuestionsToFile("questions.json"); // Save to JSON
     }
 
     public void removeQuestion(Question question) {
@@ -173,6 +188,27 @@ public class SysData implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    
+    //Players
+    
+    private List<Player> allPlayers = new ArrayList<>();
+
+ // Getter for the list of all players
+ public List<Player> getAllPlayers() {
+     return allPlayers;
+ }
+ 
+    public void addPlayer(Player player) {
+        if (player.getPseudo() == null || player.getPseudo().trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty.");
+        }
+        if (player.getImageSource() == null || player.getImageSource().trim().isEmpty()) {
+            throw new IllegalArgumentException("Player avatar cannot be empty.");
+        }
+        allPlayers.add(player);
     }
 
 }

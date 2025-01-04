@@ -40,6 +40,7 @@ public class Player
 		stat = new StatistiqueJoueur();
 	}
 	
+	
 	public void sauvegarder(Element racine)
 	{
 		Element joueur = new Element("joueurs");
