@@ -19,6 +19,8 @@ public class Master {
     private ControleurPrincipal controleurPrincipal;
     private Partie partie; // Reference to the game (Partie)
     
+    //TEST
+    
     public Master() {
         Calendar date = Calendar.getInstance();
         idSession = 10000 * date.get(Calendar.MONTH)
