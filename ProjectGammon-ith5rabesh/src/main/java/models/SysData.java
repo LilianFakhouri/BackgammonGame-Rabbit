@@ -10,11 +10,15 @@ import Utils.Level;
 public class SysData implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String QUESTIONS_FILE = "questions.json";
+    
+    private static final String GAME_HISTORY_FILE = "game_history.json";
     private HashSet<Question> allQuestions = new HashSet<>();
     private static SysData sys = null;
+    private List<GameHistory> gameHistories = new ArrayList<>();
 
     private SysData() {
         loadQuestions();
+        loadGameHistory();
     }
 
     public static SysData getInstance() {
@@ -190,6 +194,76 @@ public class SysData implements Serializable {
         }
     }
     
+    
+ // Game History Management
+    public void loadGameHistory() {
+        gameHistories.clear();
+        try (InputStream inputStream = new FileInputStream(GAME_HISTORY_FILE)) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            JSONArray historyArray = (JSONArray) new JSONParser().parse(reader);
+
+            for (Object obj : historyArray) {
+                JSONObject historyObj = (JSONObject) obj;
+                int id = Integer.parseInt((String) historyObj.get("id"));
+                String winnerName = (String) historyObj.get("winner");
+                String secondPlayerName = (String) historyObj.get("secondPlayer");
+                String duration = (String) historyObj.get("duration");
+                Level level = Level.valueOf((String) historyObj.get("level"));
+
+                Player winner = findPlayerByName(winnerName);
+                Player secondPlayer = findPlayerByName(secondPlayerName);
+
+                GameHistory history = new GameHistory(id, winner, secondPlayer, duration, level);
+                gameHistories.add(history);
+            }
+            System.out.println("Game history loaded successfully.");
+        } catch (Exception e) {
+            System.out.println("No game history found or error loading: " + e.getMessage());
+        }
+    }
+
+    public void saveGameHistory() {
+        JSONArray historyArray = new JSONArray();
+
+        for (GameHistory history : gameHistories) {
+            JSONObject historyObj = new JSONObject();
+            historyObj.put("id", String.valueOf(history.getId()));
+            historyObj.put("winner", history.getWinner().getPseudo());
+            historyObj.put("secondPlayer", history.getSecondPlayer().getPseudo());
+            historyObj.put("duration", history.getDuration());
+            historyObj.put("level", history.getLevel().toString());
+            historyArray.add(historyObj);
+        }
+
+        try (FileWriter writer = new FileWriter(GAME_HISTORY_FILE)) {
+            writer.write(historyArray.toJSONString());
+            System.out.println("Game history saved successfully to: " + GAME_HISTORY_FILE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addGameHistory(GameHistory history) {
+        gameHistories.add(history);
+        saveGameHistory();
+    }
+
+    public List<GameHistory> getGameHistories() {
+        return gameHistories;
+    }
+
+    private Player findPlayerByName(String name) {
+        for (Player player : allPlayers) {
+            if (player.getPseudo().equals(name)) {
+                return player;
+            }
+        }
+        Player newPlayer = new Player(null, name, "defaultAvatar.png", null); // Replace with actual defaults
+        allPlayers.add(newPlayer);
+        return newPlayer;
+
+    }
+
     
     
     //Players
