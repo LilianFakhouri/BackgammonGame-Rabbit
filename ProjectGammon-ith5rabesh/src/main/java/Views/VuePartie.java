@@ -8,17 +8,23 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import GUI.DeButton;
 import GUI.GameTimerBarr;
 import GUI.HorlogeBarr;
 import GUI.QuestionStationBarr;
 import GUI.SurpriseStationBarr;
 import GUI.MonochromeVue;
 import GUI.TriangleCaseButton;
+import GUI.questionDiceGui;
 import models.CouleurCase;
 import models.SessionState;
 import models.Partie;
+import models.QuestionDice;
+import models.DeSixFaces;
+import Views.VueNouvelleSession;
 
 public class VuePartie extends MonochromeVue {
+	private List<QuestionDice> desButton;
 
     private static final long serialVersionUID = 2417367501490643145L;
 
@@ -30,7 +36,8 @@ public class VuePartie extends MonochromeVue {
     private SessionState etat;
     
     
-
+    
+    private questionspanel quess;
     private PanelTermineVueDroite panelDroitRevoir;
     private PanelEnCoursVueDroite panelDroitEnCours;
     private PanelEnCoursVueBas panelEnCoursVueBas;
@@ -43,6 +50,7 @@ public class VuePartie extends MonochromeVue {
     private List<TriangleCaseButton> triangles; // List of all triangle buttons
     private List<QuestionStationBarr> questionStations; // Question markers
     private SurpriseStationBarr surpriseStationBarr; // Surprise marker
+  private String selectedLevel=VueNouvelleSession.getSelectedLevel();
 
     /**
      * Constructor for VuePartie.
@@ -52,10 +60,12 @@ public class VuePartie extends MonochromeVue {
     public VuePartie(Partie partie) {
         this.partie = partie;
         vueTablier = new VueTablier(partie);
-
+        
         setOpaque(false);
         build();
     }
+    
+  
 
     /**
      * Builds the game view with all components and initializes logic.
@@ -106,19 +116,36 @@ public class VuePartie extends MonochromeVue {
         panelJoueur2 = new PanelJoueurVuePartie(partie.getParametreJeu().getJoueurNoir(), CouleurCase.NOIR);
         panelJoueur2.setBounds(10, 235, 150, 215);
         add(panelJoueur2);
+       
+
 
         initializeTriangles();
+
 
         // Place random question stations and surprise stations
         placeRandomQuestionStations();
         placeRandomSurprise();
+   
+if (selectedLevel=="Medium") {
+	
+	QuestionDice questionDiceGui = new QuestionDice();
+	
+    questionDiceGui.setBounds(256, 50, 26, 26);  // מיקום מתחת ל-panelDroitRevoir
+	    add(questionDiceGui);
+	    vueTablier.addQuestionDice(questionDiceGui,256,50);
+	    revalidate();
+	    repaint();
+	
+}
 
         setEtat(getEtat());
+      
     }
-
     /**
      * Initializes the triangle cases on the board.
      */
+    
+  
     private void initializeTriangles() {
         // Assuming vueTablier has a method to return all triangle buttons
         triangles = vueTablier.getAllTriangles();
@@ -233,7 +260,30 @@ public class VuePartie extends MonochromeVue {
             panelEnCoursVueBas.setVisible(true);
         }
     }
-
+//    public void updateDes(){
+//
+//		List<DeSixFaces> des = partie.getDeSixFaces();
+//		
+//		if(desButton != null){
+//			for(QuestionDice de_btn : desButton){
+//				remove(de_btn);
+//			}
+//		}
+//		desButton = new ArrayList<>();
+//		
+//		int size = des.size();
+//		int i = 0;
+//		if(size>0)
+//			for(DeSixFaces de : des){
+//				QuestionDice btn = new QuestionDice(de);
+//				int y = (int) (252 + 40*((float)i-size/2));
+//				btn.setBounds(427-173, y,
+//						btn.getPreferredSize().width , btn.getPreferredSize().height);
+//				add(btn);
+//				desButton.add(btn);
+//				i++;
+//			}
+//    }
     public VueTablier getVueTablier() {
         return vueTablier;
     }

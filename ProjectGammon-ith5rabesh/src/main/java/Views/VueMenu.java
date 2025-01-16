@@ -97,7 +97,7 @@ public class VueMenu extends MonochromeVue {
             parentFrame.getContentPane().removeAll();
 
             // Add QuestionManagementScreen as the new content
-            parentFrame.setContentPane(new QuestionManagementScreen());
+            parentFrame.setContentPane(new QuestionManagementScreen(this));
 
             // Revalidate and repaint to refresh the frame
             parentFrame.revalidate();
@@ -136,4 +136,10 @@ public class VueMenu extends MonochromeVue {
     public MonochromeButton getBoutonQuitter() {
         return boutonQuitter;
     }
+    
+    public MonochromeButton getBoutonQuestionsManagement(){
+    	return boutonQuestionsManagement;
+    }
+    
+    
 }

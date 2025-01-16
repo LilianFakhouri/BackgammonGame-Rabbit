@@ -1,6 +1,9 @@
 package Views;
 
 import javax.swing.*;
+
+import GUI.MonochromeButton;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class QuestionManagementScreen extends JPanel {
     private List<Question> questions;
     private VueMenu vueMenu; // Reference to the original VueMenu
 
+    private MonochromeButton boutonRetour;//return button
 
     public QuestionManagementScreen() {
         build();
@@ -90,10 +94,10 @@ public class QuestionManagementScreen extends JPanel {
         editButton.addActionListener(e -> editQuestion());
         deleteButton.addActionListener(e -> deleteQuestion());
 
-        JButton returnButton = new JButton("Return to Menu");
-        returnButton.setBounds(10, 10, 150, 30); // Adjust position and size
-        returnButton.addActionListener(e -> switchToMenu());
-        add(returnButton);
+        JButton boutonRetour = new JButton("Return to Menu");
+        boutonRetour.setBounds(10, 10, 150, 30); // Adjust position and size
+        boutonRetour.addActionListener(e -> switchToMenu());
+        add(boutonRetour);
         
         // Initialize the first question display
         updateQuestionDisplay();
@@ -132,14 +136,17 @@ public class QuestionManagementScreen extends JPanel {
         // Get the parent JFrame
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         if (parentFrame != null) {
-            // Clear the current content
-            parentFrame.getContentPane().removeAll();
+            parentFrame.getContentPane().removeAll();;
 
             // Add a new VueMenu as the content
-            parentFrame.setContentPane(new VueMenu());
+            parentFrame.setContentPane(vueMenu);
+            vueMenu.requestFocusInWindow();
+            
+            
 
             // Revalidate and repaint to refresh the frame
-            parentFrame.revalidate();
+            parentFrame.invalidate();
+            parentFrame.validate();
             parentFrame.repaint();
 
             System.out.println("Switched back to VueMenu.");
