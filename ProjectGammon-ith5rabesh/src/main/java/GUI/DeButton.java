@@ -26,6 +26,9 @@ public class DeButton extends JButton {
     private static final String DE_NOIR_5 = "/images/des/de_noir_5.png";
     private static final String DE_NOIR_6 = "/images/des/de_noir_6.png";
 
+    
+    
+
     private DeSixFaces de;
     private ImageIcon icon;
 

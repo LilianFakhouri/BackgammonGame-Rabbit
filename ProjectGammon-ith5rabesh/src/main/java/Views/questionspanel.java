@@ -11,7 +11,7 @@ import GUI.MonochromeIconButton;
 import models.CouleurCase;
 import models.Partie;
 
-public class PanelEnCoursVueDroite extends JPanel{
+public class questionspanel extends JPanel{
 	/**
 	 * Cette classe permet de visualiser le panel vue droite quand on joue une partie
 	 */
@@ -29,7 +29,7 @@ public class PanelEnCoursVueDroite extends JPanel{
  * constructeur du panel
  * @param p il lui faut une partie en paramètre
  */
-public PanelEnCoursVueDroite(Partie p){
+public questionspanel(Partie p){
 	partie = p;
 	build();
 }
@@ -67,7 +67,11 @@ private void build() {
 		labdices.setBounds(20, 304, 80, 60);
 		add(labdices);
 		
-	
+		
+		JLabel questiondice = new JLabel("<html>Launch<br>Dice");
+		labdices.setForeground(new Color(0xCCCCCC));
+		labdices.setBounds(20, 304, 80, 60);
+		add(questiondice);
 		
 		//creation composant et label du videau
 		//attention ici j'ai pris la largeur et hauteur du dices

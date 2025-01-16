@@ -8,19 +8,23 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import GUI.DeButton;
 import GUI.GameTimerBarr;
 import GUI.HorlogeBarr;
 import GUI.QuestionStationBarr;
 import GUI.SurpriseStationBarr;
 import GUI.MonochromeVue;
 import GUI.TriangleCaseButton;
+import GUI.questionDiceGui;
 import models.CouleurCase;
 import models.SessionState;
 import models.Partie;
 import models.QuestionDice;
 import models.DeSixFaces;
 import Views.VueNouvelleSession;
+
 public class VuePartie extends MonochromeVue {
+	private List<QuestionDice> desButton;
 
     private static final long serialVersionUID = 2417367501490643145L;
 
@@ -32,7 +36,8 @@ public class VuePartie extends MonochromeVue {
     private SessionState etat;
     
     
-
+    
+    private questionspanel quess;
     private PanelTermineVueDroite panelDroitRevoir;
     private PanelEnCoursVueDroite panelDroitEnCours;
     private PanelEnCoursVueBas panelEnCoursVueBas;
@@ -111,6 +116,8 @@ public class VuePartie extends MonochromeVue {
         panelJoueur2 = new PanelJoueurVuePartie(partie.getParametreJeu().getJoueurNoir(), CouleurCase.NOIR);
         panelJoueur2.setBounds(10, 235, 150, 215);
         add(panelJoueur2);
+       
+
 
         initializeTriangles();
 
@@ -120,7 +127,14 @@ public class VuePartie extends MonochromeVue {
         placeRandomSurprise();
    
 if (selectedLevel=="Medium") {
-	new QuestionDice();	
+	
+	QuestionDice questionDiceGui = new QuestionDice();
+	
+    questionDiceGui.setBounds(150, 100, 64, 64);  // מיקום מתחת ל-panelDroitRevoir
+	    add(questionDiceGui);
+	    revalidate();
+	    repaint();
+	
 }
 
         setEtat(getEtat());
@@ -245,7 +259,30 @@ if (selectedLevel=="Medium") {
             panelEnCoursVueBas.setVisible(true);
         }
     }
-
+//    public void updateDes(){
+//
+//		List<DeSixFaces> des = partie.getDeSixFaces();
+//		
+//		if(desButton != null){
+//			for(QuestionDice de_btn : desButton){
+//				remove(de_btn);
+//			}
+//		}
+//		desButton = new ArrayList<>();
+//		
+//		int size = des.size();
+//		int i = 0;
+//		if(size>0)
+//			for(DeSixFaces de : des){
+//				QuestionDice btn = new QuestionDice(de);
+//				int y = (int) (252 + 40*((float)i-size/2));
+//				btn.setBounds(427-173, y,
+//						btn.getPreferredSize().width , btn.getPreferredSize().height);
+//				add(btn);
+//				desButton.add(btn);
+//				i++;
+//			}
+//    }
     public VueTablier getVueTablier() {
         return vueTablier;
     }
