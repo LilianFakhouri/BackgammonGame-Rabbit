@@ -17,7 +17,9 @@ import GUI.TriangleCaseButton;
 import models.CouleurCase;
 import models.SessionState;
 import models.Partie;
-
+import models.QuestionDice;
+import models.DeSixFaces;
+import Views.VueNouvelleSession;
 public class VuePartie extends MonochromeVue {
 
     private static final long serialVersionUID = 2417367501490643145L;
@@ -43,6 +45,7 @@ public class VuePartie extends MonochromeVue {
     private List<TriangleCaseButton> triangles; // List of all triangle buttons
     private List<QuestionStationBarr> questionStations; // Question markers
     private SurpriseStationBarr surpriseStationBarr; // Surprise marker
+  private String selectedLevel=VueNouvelleSession.getSelectedLevel();
 
     /**
      * Constructor for VuePartie.
@@ -52,10 +55,12 @@ public class VuePartie extends MonochromeVue {
     public VuePartie(Partie partie) {
         this.partie = partie;
         vueTablier = new VueTablier(partie);
-
+        
         setOpaque(false);
         build();
     }
+    
+  
 
     /**
      * Builds the game view with all components and initializes logic.
@@ -109,16 +114,23 @@ public class VuePartie extends MonochromeVue {
 
         initializeTriangles();
 
+
         // Place random question stations and surprise stations
         placeRandomQuestionStations();
         placeRandomSurprise();
+   
+if (selectedLevel=="Medium") {
+	new QuestionDice();	
+}
 
         setEtat(getEtat());
+      
     }
-
     /**
      * Initializes the triangle cases on the board.
      */
+    
+  
     private void initializeTriangles() {
         // Assuming vueTablier has a method to return all triangle buttons
         triangles = vueTablier.getAllTriangles();

@@ -38,9 +38,9 @@ public class VueNouvelleSession extends JPanel {
     private Player j1;
     private Player j2;
     
-    private JCheckBox easyCheckBox;
-    private JCheckBox mediumCheckBox;
-    private JCheckBox hardCheckBox;
+    private static JCheckBox easyCheckBox;
+    private static JCheckBox mediumCheckBox;
+    private static JCheckBox hardCheckBox;
 
     /**
      * Constructor for VueNouvelleSession
@@ -144,11 +144,24 @@ public class VueNouvelleSession extends JPanel {
 
         // Add listener for switching player colors
         listenerBoutonChangerCouleur();
+        
+
     }
 
     /**
      * Dynamically positions the button to switch player colors.
      */
+    
+    public static String getSelectedLevel() {
+        if (easyCheckBox.isSelected()) {
+            return "Easy";
+        } else if (mediumCheckBox.isSelected()) {
+            return "Medium";
+        } else if (hardCheckBox.isSelected()) {
+            return "Hard";
+        }
+        return "Easy"; // Default to Easy if no level is selected
+    }
     private void positionBoutonChangerCouleur() {
         int panel1Y = panelJoueur1.getBounds().y + panelJoueur1.getBounds().height;
         int panel2Y = panelJoueur2.getBounds().y;

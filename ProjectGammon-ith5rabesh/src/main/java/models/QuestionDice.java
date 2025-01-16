@@ -9,6 +9,7 @@ public class QuestionDice {
     private Random random;
 
     public QuestionDice() {
+    	System.out.println("helllo");
         random = new Random();
     }
 
