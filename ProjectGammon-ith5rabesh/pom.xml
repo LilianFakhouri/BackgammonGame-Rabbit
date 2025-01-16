@@ -60,6 +60,14 @@
 
   <build>
     <finalName>project-gammon</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <!-- Maven Compiler Plugin -->
       <plugin>
