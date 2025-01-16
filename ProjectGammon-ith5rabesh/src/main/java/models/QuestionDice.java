@@ -25,7 +25,7 @@ public class QuestionDice extends JButton {
     public QuestionDice() {
         random = new Random();
         setOpaque(false); // Ensures transparency
-        setPreferredSize(new Dimension(64, 64)); // Set the size of the dice
+        setPreferredSize(new Dimension(10, 10)); // Set the size of the dice
         roll(); // Initialize the dice with a random value
     }
 

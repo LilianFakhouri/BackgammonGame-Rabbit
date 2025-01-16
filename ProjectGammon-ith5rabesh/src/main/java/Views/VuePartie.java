@@ -130,8 +130,9 @@ if (selectedLevel=="Medium") {
 	
 	QuestionDice questionDiceGui = new QuestionDice();
 	
-    questionDiceGui.setBounds(150, 100, 64, 64);  // מיקום מתחת ל-panelDroitRevoir
+    questionDiceGui.setBounds(256, 50, 26, 26);  // מיקום מתחת ל-panelDroitRevoir
 	    add(questionDiceGui);
+	    vueTablier.addQuestionDice(questionDiceGui,256,50);
 	    revalidate();
 	    repaint();
 	

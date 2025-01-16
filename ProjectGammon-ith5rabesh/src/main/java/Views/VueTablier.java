@@ -26,6 +26,7 @@ import models.Case;
 import models.CouleurCase;
 import models.DeSixFaces;
 import models.Partie;
+import models.QuestionDice;
 import models.Tablier;
 
 public class VueTablier extends JPanel{
@@ -40,11 +41,14 @@ public class VueTablier extends JPanel{
 	private List<DeButton> desButton;
 	public VueTablier(Partie partie) {
 		this.partie = partie;
+		  setLayout(null); // Allows free placement of components
+		    setOpaque(false); // Ensure the board's background is visible
 		this.tablier = partie.getTablier();
 		this.casesButtons = new HashMap<>();
 		this.setCandidat(null);  
 		build();
 	}
+	
 
 
 	public CaseButton getCandidat() {
@@ -100,6 +104,12 @@ public class VueTablier extends JPanel{
 		updateDes();
 	}
 	
+	public void addQuestionDice(QuestionDice questionDice, int x, int y) {
+	    questionDice.setBounds(256, 142, 26, 26);
+	    add(questionDice);
+	    revalidate();
+	    repaint();
+	}
 	private void creerCasesVictoires(Case c){
 		//TODO: Gestion du sens des cases victoires
 		//TODO: Creer les cases victoires
