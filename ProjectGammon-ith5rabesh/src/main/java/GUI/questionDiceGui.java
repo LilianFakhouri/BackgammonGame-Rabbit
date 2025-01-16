@@ -9,8 +9,7 @@ public class questionDiceGui extends JPanel {
     public questionDiceGui() {
         // יצירת QuestionDice
         questionDice = new QuestionDice();
-//       questionDice.setBounds(150, 100, 2, 2); // מיקום הקובייה
-//      
+     
         // הוספת ה-QuestionDice ל-PANEL
         setLayout(null); // לayout חופשי
         add(questionDice);
