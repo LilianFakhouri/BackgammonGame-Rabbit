@@ -116,7 +116,7 @@ public class ControleurTablier implements Controller{
 
 	                            // Check if the player landed on a surprise station
 	                            if (caseButton.hasSurpriseStation()) {
-	                                vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station!");
+	                                vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station! Launch the dice again");
 	                                vueTablier.clearSurpriseStation(caseButton);
 	                                partie.lancerDes();
 	                                return; // Exit early for surprise station handling

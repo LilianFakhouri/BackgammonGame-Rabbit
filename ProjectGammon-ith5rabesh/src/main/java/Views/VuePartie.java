@@ -34,6 +34,8 @@ public class VuePartie extends MonochromeVue {
     private Partie partie;
     private VueTablier vueTablier;
     private SessionState etat;
+    private QuestionDice questionDiceGui;
+    
     
     
     
@@ -46,6 +48,7 @@ public class VuePartie extends MonochromeVue {
     private PanelJoueurVuePartie panelJoueur2;
     private HorlogeBarr horlogeBarr;
     private GameTimerBarr gameTimerBarr;
+    
 
     private List<TriangleCaseButton> triangles; // List of all triangle buttons
     private List<QuestionStationBarr> questionStations; // Question markers
@@ -125,18 +128,14 @@ public class VuePartie extends MonochromeVue {
         // Place random question stations and surprise stations
         placeRandomQuestionStations();
         placeRandomSurprise();
-   
-if (selectedLevel=="Medium") {
-	
-	QuestionDice questionDiceGui = new QuestionDice();
-	
-    questionDiceGui.setBounds(256, 50, 26, 26);  // מיקום מתחת ל-panelDroitRevoir
-	    add(questionDiceGui);
-	    vueTablier.addQuestionDice(questionDiceGui,256,50);
-	    revalidate();
-	    repaint();
-	
-}
+        
+        if (selectedLevel.equals("Medium")) {
+            questionDiceGui = new QuestionDice(); // Instantiate it here
+            questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
+            add(questionDiceGui); // Add to this VuePartie
+            vueTablier.addQuestionDice(questionDiceGui, 256, 50); // If needed
+            questionDiceGui.setVisible(false); // Initially hidden
+        }
 
         setEtat(getEtat());
       
@@ -315,4 +314,22 @@ if (selectedLevel=="Medium") {
     public HorlogeBarr getHorlogeBarr() {
         return horlogeBarr;
     }
+
+
+
+    public void setSelectedLevel(String level) {
+        this.selectedLevel = level;
+    }
+    
+    public String getSelectedLevel() {
+        return selectedLevel;
+    }
+
+    
+    public QuestionDice getQuestionDiceGui() {
+        return questionDiceGui;
+    }
+
+
+	
 }

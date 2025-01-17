@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.SortedSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -414,41 +415,52 @@ public class ControleurPartie implements Controller {
 	}
 
 	public void listenerLancerDe() {
+	    vuePartie.getPaneldroitencours().getDices().addMouseListener(new MouseListener() {
+	        @Override
+	        public void mouseClicked(MouseEvent arg0) {
+	        }
 
-		vuePartie.getPaneldroitencours().getDices().addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
+	        @Override
+	        public void mouseEntered(MouseEvent arg0) {
+	        }
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
+	        @Override
+	        public void mouseExited(MouseEvent arg0) {
+	        }
 
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-			}
+	        @Override
+	        public void mousePressed(MouseEvent arg0) {
+	        }
 
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-			}
+	        @Override
+	        public void mouseReleased(MouseEvent arg0) {
+	            if (!session.getPartieEnCours().isPartieFini()) {
+	                // Roll all standard dice
+	                session.getPartieEnCours().lancerDes();
 
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				if (session.getPartieEnCours().isTourFini() && !session.getPartieEnCours().isPartieFini()) {
-					session.getPartieEnCours().lancerDes();
-					if (controleurTablier.getHorloge() != null)
-						controleurTablier.getHorloge().restart();
-					if (!session.getPartieEnCours().hasCoupPossible()) {
-						vuePartie.afficherFenetreDemande("No possible move", "");
-						controleurTablier.changerTour();
-					}
-				}
-				vuePartie.updateUI();
-				vuePartie.getVueTablier().updateUI();
-				vuePartie.getVueTablier().updateDes();
+	                // Handle special dice for "Medium" level
+	                if ("Medium".equals(vuePartie.getSelectedLevel())) {
+	                    // Roll questions dice
+	                    int specialDiceValue = new Random().nextInt(3) + 1;
+	                    vuePartie.getQuestionDiceGui().setValue(specialDiceValue);
+	                    vuePartie.getQuestionDiceGui().setVisible(true);  // Make question dice visible
+	                }
 
-			}
-		});
+	                if (controleurTablier.getHorloge() != null) {
+	                    controleurTablier.getHorloge().restart();
+	                }
+	                vuePartie.updateUI();
+	                vuePartie.getVueTablier().updateUI();
+	                vuePartie.getVueTablier().updateDes();
+
+	                // Check if there are possible moves, if not, change turn
+	                if (!session.getPartieEnCours().hasCoupPossible()) {
+	                    vuePartie.afficherFenetreDemande("No possible move", "");
+	                    controleurTablier.changerTour();
+	                }
+	            }
+	        }
+	    });
 	}
 
 	public void listenerGetCoupPossibleJoueur1() {

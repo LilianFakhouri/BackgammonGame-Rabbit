@@ -92,4 +92,11 @@ public class QuestionDice extends JButton {
 
         g2.dispose();
     }
+    
+    public void setValue(int value) {
+        if (value >= 1 && value <= 3) { // Ensure the value is within the valid range
+            currentValue = value; // Set the current value to the passed value
+            updateFace(); // Update the face of the dice
+        }
+    }
 }
