@@ -8,6 +8,9 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+import Utils.Level;
 
 public class QuestionDice extends JButton {
 
@@ -26,7 +29,42 @@ public class QuestionDice extends JButton {
         random = new Random();
         setOpaque(false); // Ensures transparency
         setPreferredSize(new Dimension(10, 10)); // Set the size of the dice
-        roll(); // Initialize the dice with a random value
+        roll(); // Initialize the dice with a random value (but don't trigger a question)
+    }
+
+    public Utils.Level getLevelByCurrentValue(int currentValue) {
+        switch (currentValue) {
+            case 1:
+                return Level.Easy;
+            case 2:
+                return Level.Medium;
+            case 3:
+                return Level.Hard;
+            default:
+                throw new IllegalStateException("Invalid dice value: " + currentValue);
+        }
+    }
+
+ 
+
+    public void handleQuestionByLevel(int level) {
+    	   Utils.Level levels = getLevelByCurrentValue(level); // Get difficulty level based on roll value
+        System.out.println("we are in " + level);
+
+        SysData sysData = SysData.getInstance();
+        Question question = sysData.getRandomQuestionByLevel(levels); // Retrieve a random question for the level
+
+        if (question != null) {
+            JOptionPane.showMessageDialog(this,
+                    "Question: " + question.getQuestionContent(),
+                    "Level: " + level,
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No question available for level: " + level,
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -35,24 +73,10 @@ public class QuestionDice extends JButton {
      */
     public int roll() {
         currentValue = random.nextInt(3) + 1; // Generate a value between 1 and 3
-        updateFace(); // Update the dice face based on the new value
+        updateFace(); // Update the dice face based on the new value 
+        System.out.println(currentValue);
+        handleQuestionByLevel(currentValue);
         return currentValue;
-    }
-
-    /**
-     * Returns the current value of the dice.
-     * @return The current face value of the dice.
-     */
-    public int getCurrentValue() {
-        return currentValue;
-    }
-
-    /**
-     * Indicates that this dice always triggers a question.
-     * @return true, as this is a dedicated Question Dice.
-     */
-    public boolean triggersQuestion() {
-        return true;
     }
 
     /**
@@ -92,11 +116,19 @@ public class QuestionDice extends JButton {
 
         g2.dispose();
     }
-    
+
     public void setValue(int value) {
         if (value >= 1 && value <= 3) { // Ensure the value is within the valid range
             currentValue = value; // Set the current value to the passed value
             updateFace(); // Update the face of the dice
         }
+    }
+
+    /**
+     * Indicates that this dice always triggers a question.
+     * @return true, as this is a dedicated Question Dice.
+     */
+    public boolean triggersQuestion() {
+        return true;
     }
 }

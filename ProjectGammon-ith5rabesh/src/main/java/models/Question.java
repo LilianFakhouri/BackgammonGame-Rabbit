@@ -1,9 +1,21 @@
 package models;
 
-import java.io.Serializable;
-import java.util.Objects;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import models.Question;
 import Utils.Level;
+
+
 
 public class Question implements Serializable, Comparable<Question> {
     private static final long serialVersionUID = 1L;
@@ -17,6 +29,7 @@ public class Question implements Serializable, Comparable<Question> {
     private String answer3;
     private String answer4;
     private int correctAnswerNumber;
+    
 
     public Question(String theQuestion, Level theLevel, String answer1, String answer2, String answer3, String answer4, int correctAnswerNumber) {
         this.questionId = questionNumber++;
@@ -132,4 +145,6 @@ public class Question implements Serializable, Comparable<Question> {
     public String[] getAnswers() {
         return new String[]{answer1, answer2, answer3, answer4};
     }
+
+
 }

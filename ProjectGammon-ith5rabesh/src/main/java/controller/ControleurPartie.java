@@ -35,6 +35,7 @@ import models.GestionDeSession;
 import models.NiveauAssistant;
 import models.Partie;
 import models.Profils;
+import models.QuestionDice;
 import models.Session;
 import Views.VuePartie;
 
@@ -444,6 +445,10 @@ public class ControleurPartie implements Controller {
 	                    int specialDiceValue = new Random().nextInt(3) + 1;
 	                    vuePartie.getQuestionDiceGui().setValue(specialDiceValue);
 	                    vuePartie.getQuestionDiceGui().setVisible(true);  // Make question dice visible
+	                    
+	                    vuePartie.getQuestionDiceGui().roll();
+
+	                
 	                }
 
 	                if (controleurTablier.getHorloge() != null) {

@@ -5,8 +5,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import org.slf4j.event.Level;
 
 import GUI.DeButton;
 import GUI.GameTimerBarr;
@@ -18,11 +22,12 @@ import GUI.TriangleCaseButton;
 import GUI.questionDiceGui;
 import models.CouleurCase;
 import models.SessionState;
+import models.SysData;
 import models.Partie;
 import models.QuestionDice;
 import models.DeSixFaces;
+import models.Question;
 import Views.VueNouvelleSession;
-
 public class VuePartie extends MonochromeVue {
 	private List<QuestionDice> desButton;
 
@@ -130,28 +135,40 @@ public class VuePartie extends MonochromeVue {
         placeRandomSurprise();
         
         if (selectedLevel.equals("Medium")) {
-            questionDiceGui = new QuestionDice(); // Instantiate it here
+            // Instantiate only if it hasn't been instantiated yet
+            questionDiceGui = new QuestionDice(); 
             questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
             add(questionDiceGui); // Add to this VuePartie
-            vueTablier.addQuestionDice(questionDiceGui, 256, 50); // If needed
+            vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
             questionDiceGui.setVisible(false); // Initially hidden
+           
+            
         }
 
-        setEtat(getEtat());
-      
+        setEtat(getEtat()); // Check if this is necessary or redundant based on your game logic
     }
     /**
      * Initializes the triangle cases on the board.
      */
+    /**
+     * Launches a question based on the current game level.
+     */
     
+
+
+
+
+
   
     private void initializeTriangles() {
         // Assuming vueTablier has a method to return all triangle buttons
         triangles = vueTablier.getAllTriangles();
     }
+    
 
     /**
      * Randomly assigns question marks to three triangle buttons.
+     * 
      */
     private void placeRandomQuestionStations() {
         if (triangles == null || triangles.isEmpty()) {

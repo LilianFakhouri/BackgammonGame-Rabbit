@@ -22,6 +22,7 @@ public class questionDiceGui extends JPanel {
     }
     // אם נדרש להפעיל את הקובייה
     public void rollDice() {
-        questionDice.roll(); // להפעיל את הקובייה ולגלגל אותה
+        
+    	questionDice.roll();   
     }
 }

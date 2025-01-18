@@ -30,6 +30,7 @@ public class SysData implements Serializable {
 
     public void loadQuestions() {
         allQuestions.clear();
+       
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(QUESTIONS_FILE)) {
             if (inputStream == null) {
                 throw new FileNotFoundException("Resource not found: " + QUESTIONS_FILE);
@@ -284,6 +285,32 @@ public class SysData implements Serializable {
         }
         allPlayers.add(player);
     }
+    public Set<Question> getQuestionsByLevel(Utils.Level level) {
+        // Create a new HashSet to store filtered questions
+        Set<Question> filteredQuestions = new HashSet<>();
+        
+        // Iterate over all questions
+        for (Question question : allQuestions) {
+            if (question.getLevel() == level) {
+                filteredQuestions.add(question);
+            }
+        }
+        return filteredQuestions;
+    }
+
+    public Question getRandomQuestionByLevel(Utils.Level level) {
+        Set<Question> questionsByLevel = getQuestionsByLevel(level);
+
+        if (questionsByLevel.isEmpty()) {
+            return null;
+        }
+
+        List<Question> questionList = new ArrayList<>(questionsByLevel);
+        Random random = new Random();
+        return questionList.get(random.nextInt(questionList.size()));
+    }
+
+
 
 
 }
