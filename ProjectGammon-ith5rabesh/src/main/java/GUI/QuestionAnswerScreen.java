@@ -139,6 +139,105 @@ public class QuestionAnswerScreen extends JFrame {
         });
         backgroundPanel.add(submitButton);
     }
+    public QuestionAnswerScreen(Question question) {
+        this.currentQuestion = question; // Set the current question
+
+        setTitle("Answer the Question");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null); // Center the window on the screen
+        setLayout(null);
+
+        // Background Panel
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                GradientPaint gradient = new GradientPaint(
+                    0, 0, new Color(0x1A1A1D), // Top
+                    0, getHeight(), new Color(0x4E4E50) // Bottom
+                );
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+                g2d.dispose();
+            }
+        };
+
+        backgroundPanel.setLayout(null);
+        setContentPane(backgroundPanel);
+
+        // Title Label
+        JLabel titleLabel = new JLabel("Answer the Question", JLabel.CENTER);
+        titleLabel.setFont(new Font("Roboto", Font.BOLD, 30));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(150, 20, 500, 50);
+        backgroundPanel.add(titleLabel);
+
+        // Question Content
+        JLabel questionLabel = new JLabel("<html>" + question.getQuestionContent() + "</html>", JLabel.CENTER);
+        questionLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
+        questionLabel.setForeground(new Color(0xEAEAEA));
+        questionLabel.setBounds(50, 100, 700, 100);
+        backgroundPanel.add(questionLabel);
+
+        // Answers Panel
+        JPanel answersPanel = new JPanel();
+        answersPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        answersPanel.setBounds(150, 220, 500, 200);
+        answersPanel.setOpaque(false); // Transparent panel
+        ButtonGroup answerGroup = new ButtonGroup();
+        JRadioButton[] answerButtons = new JRadioButton[4];
+        String[] answers = {
+            question.getAnswer1(),
+            question.getAnswer2(),
+            question.getAnswer3(),
+            question.getAnswer4()
+        };
+
+        for (int i = 0; i < answers.length; i++) {
+            answerButtons[i] = new JRadioButton(answers[i]);
+            answerButtons[i].setFont(new Font("Roboto", Font.PLAIN, 18));
+            answerButtons[i].setForeground(Color.WHITE);
+            answerButtons[i].setBackground(new Color(0x333333));
+            answerButtons[i].setFocusPainted(false);
+            answerButtons[i].setOpaque(true);
+            answerGroup.add(answerButtons[i]);
+            answersPanel.add(answerButtons[i]);
+        }
+        backgroundPanel.add(answersPanel);
+
+        // Submit Button
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBackground(new Color(0xA9A9A9)); // Light Gray
+        submitButton.setForeground(Color.BLACK); // Black text for better contrast
+        submitButton.setFocusPainted(false);
+        submitButton.setBounds(325, 440, 150, 50);
+        submitButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        submitButton.addActionListener(e -> {
+            int selectedAnswer = -1;
+            for (int i = 0; i < answerButtons.length; i++) {
+                if (answerButtons[i].isSelected()) {
+                    selectedAnswer = i + 1;
+                    break;
+                }
+            }
+
+            if (selectedAnswer == -1) {
+                JOptionPane.showMessageDialog(this, "Please select an answer!", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (selectedAnswer == question.getCorrectAnswerNumber()) {
+                    JOptionPane.showMessageDialog(this, "Correct! Well done.", "Correct", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Wrong! The correct answer is: " +
+                            answers[question.getCorrectAnswerNumber() - 1], "Incorrect", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        backgroundPanel.add(submitButton);
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new QuestionAnswerScreen().setVisible(true));

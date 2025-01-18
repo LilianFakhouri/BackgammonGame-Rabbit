@@ -9,7 +9,9 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
+import GUI.QuestionAnswerScreen;
 import Utils.Level;
 
 public class QuestionDice extends JButton {
@@ -48,17 +50,17 @@ public class QuestionDice extends JButton {
  
 
     public void handleQuestionByLevel(int level) {
-    	   Utils.Level levels = getLevelByCurrentValue(level); // Get difficulty level based on roll value
-        System.out.println("we are in " + level);
+        Utils.Level levels = getLevelByCurrentValue(level); // Get difficulty level based on roll value
+        System.out.println("Dice rolled to level: " + level);
 
         SysData sysData = SysData.getInstance();
         Question question = sysData.getRandomQuestionByLevel(levels); // Retrieve a random question for the level
 
         if (question != null) {
-            JOptionPane.showMessageDialog(this,
-                    "Question: " + question.getQuestionContent(),
-                    "Level: " + level,
-                    JOptionPane.INFORMATION_MESSAGE);
+            SwingUtilities.invokeLater(() -> {
+                QuestionAnswerScreen questionAnswerScreen = new QuestionAnswerScreen(question);
+                questionAnswerScreen.setVisible(true); // Show the question answer screen
+            });
         } else {
             JOptionPane.showMessageDialog(this,
                     "No question available for level: " + level,
@@ -66,6 +68,7 @@ public class QuestionDice extends JButton {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     /**
      * Rolls the dice and updates the face to a random value between 1 and 3.
