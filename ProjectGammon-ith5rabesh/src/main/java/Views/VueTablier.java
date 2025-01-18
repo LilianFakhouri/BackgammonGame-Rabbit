@@ -25,6 +25,7 @@ import GUI.TriangleCaseButton;
 import models.Case;
 import models.CouleurCase;
 import models.DeSixFaces;
+import models.EnhancedDice;
 import models.Partie;
 import models.QuestionDice;
 import models.Tablier;
@@ -107,6 +108,12 @@ public class VueTablier extends JPanel{
 	public void addQuestionDice(QuestionDice questionDice, int x, int y) {
 	    questionDice.setBounds(256, 142, 26, 26);
 	    add(questionDice);
+	    revalidate();
+	    repaint();
+	}
+	public void addEnhancedDice(EnhancedDice enhancedDice, int x, int y) {
+		enhancedDice.setBounds(256, 142, 26, 26);
+	    add(enhancedDice);
 	    revalidate();
 	    repaint();
 	}

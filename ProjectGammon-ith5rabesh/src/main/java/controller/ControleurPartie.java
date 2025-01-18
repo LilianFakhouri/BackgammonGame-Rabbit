@@ -449,6 +449,16 @@ public class ControleurPartie implements Controller {
 	                    vuePartie.getQuestionDiceGui().roll();
 
 	                
+	                }else if ("Hard".equals(vuePartie.getSelectedLevel())) {
+	                    // Roll questions dice
+	                    int specialDiceValue=new Random().nextInt(6 - (-3) + 1) + (-3); // Random value between MIN_VALUE and MAX_VALUE
+
+	                    vuePartie.getenhancedDiceGui().setValue(specialDiceValue);
+	                    vuePartie.getenhancedDiceGui().setVisible(true);  // Make question dice visible
+	                    
+//	                    vuePartie.getQuestionDiceGui().roll();
+
+	                
 	                }
 
 	                if (controleurTablier.getHorloge() != null) {

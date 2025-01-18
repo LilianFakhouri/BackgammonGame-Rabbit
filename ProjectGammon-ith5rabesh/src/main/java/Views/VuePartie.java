@@ -26,6 +26,7 @@ import models.SysData;
 import models.Partie;
 import models.QuestionDice;
 import models.DeSixFaces;
+import models.EnhancedDice;
 import models.Question;
 import Views.VueNouvelleSession;
 public class VuePartie extends MonochromeVue {
@@ -40,7 +41,7 @@ public class VuePartie extends MonochromeVue {
     private VueTablier vueTablier;
     private SessionState etat;
     private QuestionDice questionDiceGui;
-    
+    private EnhancedDice enhancedDice; 
     
     
     
@@ -143,7 +144,16 @@ public class VuePartie extends MonochromeVue {
             questionDiceGui.setVisible(false); // Initially hidden
            
             
+        }else  if (selectedLevel.equals("Hard")) {
+        	System.out.println("hello hard ");
+        	enhancedDice=new EnhancedDice();
+        	enhancedDice.setBounds(256, 50, 26, 26); // Set position and size
+             add(enhancedDice); // Add to this VuePartie
+             vueTablier.addEnhancedDice(enhancedDice, 256, 50); // Add to vueTablier if needed
+             enhancedDice.setVisible(false); // Initially hidden
         }
+        
+        
 
         setEtat(getEtat()); // Check if this is necessary or redundant based on your game logic
     }
@@ -348,5 +358,8 @@ public class VuePartie extends MonochromeVue {
     }
 
 
-	
+    
+    public EnhancedDice getenhancedDiceGui() {
+        return enhancedDice;
+    }
 }
