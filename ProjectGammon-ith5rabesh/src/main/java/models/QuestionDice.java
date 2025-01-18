@@ -29,7 +29,7 @@ public class QuestionDice extends JButton {
         random = new Random();
         setOpaque(false); // Ensures transparency
         setPreferredSize(new Dimension(10, 10)); // Set the size of the dice
-        roll(); // Initialize the dice with a random value (but don't trigger a question)
+      //  roll(); // Initialize the dice with a random value (but don't trigger a question)
     }
 
     public Utils.Level getLevelByCurrentValue(int currentValue) {
@@ -74,8 +74,8 @@ public class QuestionDice extends JButton {
     public int roll() {
         currentValue = random.nextInt(3) + 1; // Generate a value between 1 and 3
         updateFace(); // Update the dice face based on the new value 
-        System.out.println(currentValue);
-        handleQuestionByLevel(currentValue);
+       System.out.println(currentValue);
+      handleQuestionByLevel(currentValue);
         return currentValue;
     }
 
