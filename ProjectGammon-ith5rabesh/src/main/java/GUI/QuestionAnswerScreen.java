@@ -238,6 +238,9 @@ public class QuestionAnswerScreen extends JFrame {
         });
         backgroundPanel.add(submitButton);
     }
+    
+    
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new QuestionAnswerScreen().setVisible(true));
