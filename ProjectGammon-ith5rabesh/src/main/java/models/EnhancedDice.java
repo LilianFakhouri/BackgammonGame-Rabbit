@@ -12,6 +12,7 @@ import javax.swing.JButton;
 public class EnhancedDice extends JButton {
 
     private static final long serialVersionUID = 1L;
+    //test
 
     // Paths to dice face images
     private static final String dice1 = "/images/des/dice1.png";
