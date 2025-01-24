@@ -450,21 +450,23 @@ public class ControleurPartie implements Controller {
 
 	                
 	                }else if ("Hard".equals(vuePartie.getSelectedLevel())) {
-	                    // Roll questions dice
-	                    int specialDiceValue=new Random().nextInt(6 - (-3) + 1) + (-3); // Random value between MIN_VALUE and MAX_VALUE
+	                    // Roll and set values for the first enhanced dice
+	                    int enhancedDiceValue1 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
+	                    vuePartie.getenhancedDiceGui().setValue(enhancedDiceValue1);
+	                    vuePartie.getenhancedDiceGui().setVisible(true);
+	                    vuePartie.getenhancedDiceGui().roll();
 
-	                    vuePartie.getenhancedDiceGui().setValue(specialDiceValue);
-	                    vuePartie.getenhancedDiceGui().setVisible(true);  // Make question dice visible
-	                    
-//	                    vuePartie.getQuestionDiceGui().roll();
-	                    
-	                    int specialDiceValueHARD = new Random().nextInt(3) + 1;
-	                    vuePartie.getQuestionDiceGui().setValue(specialDiceValueHARD);
-	                    vuePartie.getQuestionDiceGui().setVisible(true);  // Make question dice visible
-	                    
+	                    // Roll and set values for the second enhanced dice
+	                    int enhancedDiceValue2 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
+	                    vuePartie.getenhancedDiceGui2().setValue(enhancedDiceValue2); // Ensure a second getter exists
+	                    vuePartie.getenhancedDiceGui2().setVisible(true);
+	                    vuePartie.getenhancedDiceGui2().roll();
+
+	                    // Roll and display the question dice
+	                    int questionDiceValue = new Random().nextInt(3) + 1; // Random between 1 and 3
+	                    vuePartie.getQuestionDiceGui().setValue(questionDiceValue);
+	                    vuePartie.getQuestionDiceGui().setVisible(true);
 	                    vuePartie.getQuestionDiceGui().roll();
-
-	                
 	                }
 
 	                if (controleurTablier.getHorloge() != null) {

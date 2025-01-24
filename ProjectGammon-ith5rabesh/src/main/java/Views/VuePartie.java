@@ -42,6 +42,7 @@ public class VuePartie extends MonochromeVue {
     private SessionState etat;
     private QuestionDice questionDiceGui;
     private EnhancedDice enhancedDice; 
+    private EnhancedDice enhancedDice2; 
     
     
     
@@ -142,22 +143,34 @@ public class VuePartie extends MonochromeVue {
             add(questionDiceGui); // Add to this VuePartie
             vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
             questionDiceGui.setVisible(false); // Initially hidden
-        }else  if (selectedLevel.equals("Hard")) {
-        	System.out.println("hello hard ");
-        	
-        	enhancedDice=new EnhancedDice();
-        	enhancedDice.setBounds(256, 50, 26, 26); // Set position and size
-             add(enhancedDice); // Add to this VuePartie
-             vueTablier.addEnhancedDice(enhancedDice, 256, 50); // Add to vueTablier if needed
-             enhancedDice.setVisible(false); // Initially hidden
-             
-             questionDiceGui = new QuestionDice(); 
-             questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
-             add(questionDiceGui); // Add to this VuePartie
-             vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
-             questionDiceGui.setVisible(false); // Initially hidden
-             
+        }else if (selectedLevel.equals("Hard")) {
+            System.out.println("hello hard ");
+            
+            // Initialize both enhanced dice
+            enhancedDice = new EnhancedDice();
+            enhancedDice2 = new EnhancedDice();
+
+            // Set bounds and add the first enhanced dice
+            enhancedDice.setBounds(256, 257, 28, 28); // Example position for dice 1
+            add(enhancedDice);
+            vueTablier.addEnhancedDice(enhancedDice, 200, 257);
+
+            // Set bounds and add the second enhanced dice
+            enhancedDice2.setBounds(250, 200, 28, 28); // Example position for dice 2
+            add(enhancedDice2);
+            vueTablier.addEnhancedDice(enhancedDice2, 256, 200);
+
+            enhancedDice.setVisible(true); // Make visible
+            enhancedDice2.setVisible(true); // Make visible
+
+            // Initialize and add question dice
+            questionDiceGui = new QuestionDice();
+            questionDiceGui.setBounds(256, 50, 26, 26);
+            add(questionDiceGui);
+            vueTablier.addQuestionDice(questionDiceGui, 256, 50);
+            questionDiceGui.setVisible(false); // Initially hidden
         }
+
         
         
 
@@ -368,4 +381,11 @@ public class VuePartie extends MonochromeVue {
     public EnhancedDice getenhancedDiceGui() {
         return enhancedDice;
     }
+    
+
+
+
+	public EnhancedDice getenhancedDiceGui2() {
+		return enhancedDice2;
+	}
 }

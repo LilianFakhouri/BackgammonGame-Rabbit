@@ -112,11 +112,12 @@ public class VueTablier extends JPanel{
 	    repaint();
 	}
 	public void addEnhancedDice(EnhancedDice enhancedDice, int x, int y) {
-		enhancedDice.setBounds(256, 257, 28, 28);
-	    add(enhancedDice);
-	    revalidate();
-	    repaint();
+	    enhancedDice.setBounds(x, y, 28, 28); // Set position and size
+	    add(enhancedDice); // Add to the board
+	    revalidate(); // Refresh layout
+	    repaint(); // Trigger repaint
 	}
+	
 	private void creerCasesVictoires(Case c){
 		//TODO: Gestion du sens des cases victoires
 		//TODO: Creer les cases victoires
