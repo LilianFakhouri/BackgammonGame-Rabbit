@@ -160,8 +160,8 @@ public class VuePartie extends MonochromeVue {
             add(enhancedDice2);
             vueTablier.addEnhancedDice(enhancedDice2, 256, 200);
 
-            enhancedDice.setVisible(true); // Make visible
-            enhancedDice2.setVisible(true); // Make visible
+            enhancedDice.setVisible(false); // Initially hidden
+            enhancedDice2.setVisible(false); // Initially hidden
 
             // Initialize and add question dice
             questionDiceGui = new QuestionDice();
