@@ -28,6 +28,7 @@ import org.jdom2.JDOMException;
 
 import models.Case;
 import models.CouleurCase;
+import models.Coup;
 import models.Deplacement;
 import models.SessionState;
 import models.Tablier;
@@ -467,6 +468,9 @@ public class ControleurPartie implements Controller {
 	                    vuePartie.getQuestionDiceGui().setValue(questionDiceValue);
 	                    vuePartie.getQuestionDiceGui().setVisible(true);
 	                    vuePartie.getQuestionDiceGui().roll();
+	                    
+	                    session.getPartieEnCours().setEnhancedDiceValues(enhancedDiceValue1, enhancedDiceValue2);
+	                
 	                }
 
 	                if (controleurTablier.getHorloge() != null) {
@@ -486,6 +490,8 @@ public class ControleurPartie implements Controller {
 	    });
 	}
 
+	
+	
 	public void listenerGetCoupPossibleJoueur1() {
 		vuePartie.getPaneljoueur1().getCouppossible().addMouseListener(new MouseListener() {
 
@@ -894,7 +900,6 @@ public class ControleurPartie implements Controller {
 	public void retour() {
 
 	}
-	
-	
+
 
 }

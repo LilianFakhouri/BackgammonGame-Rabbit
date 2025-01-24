@@ -33,6 +33,8 @@ public class Partie {
 	
 	private boolean tourFini;
 	private boolean diceRolled;
+	private int enhancedDiceValue1;
+	private int enhancedDiceValue2;
 
 
 	
@@ -777,5 +779,18 @@ public class Partie {
 	    // Example: Do not increment the turn counter or reassign player turn
 	}
 
+
+	public void setEnhancedDiceValues(int value1, int value2) {
+	    this.enhancedDiceValue1 = value1;
+	    this.enhancedDiceValue2 = value2;
+	}
+
 	
+	public int[] getEnhancedDiceValues() {
+	    return new int[]{enhancedDiceValue1, enhancedDiceValue2};
+	}
+	
+
+	
+
 }

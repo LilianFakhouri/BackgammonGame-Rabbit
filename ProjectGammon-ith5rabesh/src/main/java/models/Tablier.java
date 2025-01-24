@@ -705,9 +705,18 @@ public class Tablier
 	}
 
 
+	private int[] enhancedDiceValues = new int[2]; // Array to store the two dice values
+
+	public void setEnhancedDiceValues(int value1, int value2) {
+	    this.enhancedDiceValues[0] = value1;
+	    this.enhancedDiceValues[1] = value2;
+	}
+
+	public int[] getEnhancedDiceValues() {
+	    return enhancedDiceValues;
+	}
 
 	
-	
-	
+
 	
 }
