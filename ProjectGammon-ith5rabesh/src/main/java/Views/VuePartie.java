@@ -153,10 +153,10 @@ public class VuePartie extends MonochromeVue {
             // Set bounds and add the first enhanced dice
             enhancedDice.setBounds(256, 257, 28, 28); // Example position for dice 1
             add(enhancedDice);
-            vueTablier.addEnhancedDice(enhancedDice, 200, 257);
+            vueTablier.addEnhancedDice(enhancedDice, 256, 257);
 
             // Set bounds and add the second enhanced dice
-            enhancedDice2.setBounds(250, 200, 28, 28); // Example position for dice 2
+            enhancedDice2.setBounds(256, 200, 28, 28); // Example position for dice 2
             add(enhancedDice2);
             vueTablier.addEnhancedDice(enhancedDice2, 256, 200);
 
