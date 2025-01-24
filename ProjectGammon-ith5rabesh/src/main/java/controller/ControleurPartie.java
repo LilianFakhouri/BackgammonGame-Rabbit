@@ -436,9 +436,9 @@ public class ControleurPartie implements Controller {
 	        @Override
 	        public void mouseReleased(MouseEvent arg0) {
 	            if (!session.getPartieEnCours().isPartieFini()) {
-	                // Roll all standard dice
-	                session.getPartieEnCours().lancerDes();
-
+	            	if (("Medium".equals(vuePartie.getSelectedLevel()))||("Easy".equals(vuePartie.getSelectedLevel()))) {
+	            		session.getPartieEnCours().lancerDes(); // Roll all standard dice
+	            		}
 	                // Handle special dice for "Medium" level
 	                if ("Medium".equals(vuePartie.getSelectedLevel())) {
 	                    // Roll questions dice
