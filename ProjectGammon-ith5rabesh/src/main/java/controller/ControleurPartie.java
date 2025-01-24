@@ -457,6 +457,12 @@ public class ControleurPartie implements Controller {
 	                    vuePartie.getenhancedDiceGui().setVisible(true);  // Make question dice visible
 	                    
 //	                    vuePartie.getQuestionDiceGui().roll();
+	                    
+	                    int specialDiceValueHARD = new Random().nextInt(3) + 1;
+	                    vuePartie.getQuestionDiceGui().setValue(specialDiceValueHARD);
+	                    vuePartie.getQuestionDiceGui().setVisible(true);  // Make question dice visible
+	                    
+	                    vuePartie.getQuestionDiceGui().roll();
 
 	                
 	                }

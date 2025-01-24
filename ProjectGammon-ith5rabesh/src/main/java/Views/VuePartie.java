@@ -142,15 +142,21 @@ public class VuePartie extends MonochromeVue {
             add(questionDiceGui); // Add to this VuePartie
             vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
             questionDiceGui.setVisible(false); // Initially hidden
-           
-            
         }else  if (selectedLevel.equals("Hard")) {
         	System.out.println("hello hard ");
+        	
         	enhancedDice=new EnhancedDice();
         	enhancedDice.setBounds(256, 50, 26, 26); // Set position and size
              add(enhancedDice); // Add to this VuePartie
              vueTablier.addEnhancedDice(enhancedDice, 256, 50); // Add to vueTablier if needed
              enhancedDice.setVisible(false); // Initially hidden
+             
+             questionDiceGui = new QuestionDice(); 
+             questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
+             add(questionDiceGui); // Add to this VuePartie
+             vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
+             questionDiceGui.setVisible(false); // Initially hidden
+             
         }
         
         

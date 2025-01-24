@@ -112,7 +112,7 @@ public class VueTablier extends JPanel{
 	    repaint();
 	}
 	public void addEnhancedDice(EnhancedDice enhancedDice, int x, int y) {
-		enhancedDice.setBounds(256, 142, 26, 26);
+		enhancedDice.setBounds(256, 257, 28, 28);
 	    add(enhancedDice);
 	    revalidate();
 	    repaint();
