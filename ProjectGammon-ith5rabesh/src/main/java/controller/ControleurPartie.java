@@ -455,13 +455,11 @@ public class ControleurPartie implements Controller {
 	                    int enhancedDiceValue1 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
 	                    vuePartie.getenhancedDiceGui().setValue(enhancedDiceValue1);
 	                    vuePartie.getenhancedDiceGui().setVisible(true);
-	                    vuePartie.getenhancedDiceGui().roll();
 
 	                    // Roll and set values for the second enhanced dice
 	                    int enhancedDiceValue2 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
 	                    vuePartie.getenhancedDiceGui2().setValue(enhancedDiceValue2); // Ensure a second getter exists
 	                    vuePartie.getenhancedDiceGui2().setVisible(true);
-	                    vuePartie.getenhancedDiceGui2().roll();
 
 	                    // Roll and display the question dice
 	                    int questionDiceValue = new Random().nextInt(3) + 1; // Random between 1 and 3
