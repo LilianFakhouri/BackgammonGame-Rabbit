@@ -29,6 +29,7 @@ import models.DeSixFaces;
 import models.EnhancedDice;
 import models.Question;
 import Views.VueNouvelleSession;
+import controller.DiceFactory;
 public class VuePartie extends MonochromeVue {
 	private List<QuestionDice> desButton;
 
@@ -136,41 +137,47 @@ public class VuePartie extends MonochromeVue {
         placeRandomQuestionStations();
         placeRandomSurprise();
         
+
         if (selectedLevel.equals("Medium")) {
-            // Instantiate only if it hasn't been instantiated yet
-            questionDiceGui = new QuestionDice(); 
-            questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
-            add(questionDiceGui); // Add to this VuePartie
-            vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier if needed
-            questionDiceGui.setVisible(false); // Initially hidden
-        }else if (selectedLevel.equals("Hard")) {
-            System.out.println("hello hard ");
-            
-            // Initialize both enhanced dice
-            enhancedDice = new EnhancedDice();
-            enhancedDice2 = new EnhancedDice();
+            // Create QuestionDice using the factory
+            questionDiceGui = (QuestionDice) DiceFactory.createDice("Medium");
+            if (questionDiceGui != null) {
+                questionDiceGui.setBounds(256, 50, 26, 26); // Set position and size
+                add(questionDiceGui); // Add to this VuePartie
+                vueTablier.addQuestionDice(questionDiceGui, 256, 50); // Add to vueTablier
+                questionDiceGui.setVisible(false); // Initially hidden
+            }
+        } else if (selectedLevel.equals("Hard")) {
+            System.out.println("hello hard");
 
-            // Set bounds and add the first enhanced dice
-            enhancedDice.setBounds(256, 257, 28, 28); // Example position for dice 1
-            add(enhancedDice);
-            vueTablier.addEnhancedDice(enhancedDice, 256, 257);
+            // Create EnhancedDice using the factory
+            enhancedDice = (EnhancedDice) DiceFactory.createDice("Hard");
+            enhancedDice2 = (EnhancedDice) DiceFactory.createDice("Hard");
 
-            // Set bounds and add the second enhanced dice
-            enhancedDice2.setBounds(256, 200, 28, 28); // Example position for dice 2
-            add(enhancedDice2);
-            vueTablier.addEnhancedDice(enhancedDice2, 256, 200);
+            if (enhancedDice != null && enhancedDice2 != null) {
+                // Set bounds and add the first enhanced dice
+                enhancedDice.setBounds(256, 257, 28, 28); // Example position for dice 1
+                add(enhancedDice);
+                vueTablier.addEnhancedDice(enhancedDice, 256, 257);
 
-            enhancedDice.setVisible(false); // Initially hidden
-            enhancedDice2.setVisible(false); // Initially hidden
+                // Set bounds and add the second enhanced dice
+                enhancedDice2.setBounds(256, 200, 28, 28); // Example position for dice 2
+                add(enhancedDice2);
+                vueTablier.addEnhancedDice(enhancedDice2, 256, 200);
 
-            // Initialize and add question dice
-            questionDiceGui = new QuestionDice();
-            questionDiceGui.setBounds(256, 50, 26, 26);
-            add(questionDiceGui);
-            vueTablier.addQuestionDice(questionDiceGui, 256, 50);
-            questionDiceGui.setVisible(false); // Initially hidden
+                enhancedDice.setVisible(false); // Initially hidden
+                enhancedDice2.setVisible(false); // Initially hidden
+            }
+
+            // Initialize and add QuestionDice
+            questionDiceGui = (QuestionDice) DiceFactory.createDice("Medium");
+            if (questionDiceGui != null) {
+                questionDiceGui.setBounds(256, 50, 26, 26);
+                add(questionDiceGui);
+                vueTablier.addQuestionDice(questionDiceGui, 256, 50);
+                questionDiceGui.setVisible(false); // Initially hidden
+            }
         }
-
         
         
 
