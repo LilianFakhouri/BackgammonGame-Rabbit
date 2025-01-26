@@ -9,8 +9,14 @@ import Views.VuePartie;
 import models.GestionDeSession;
 import models.ParametreJeu;
 import models.Partie;
+import models.Scoreboard;
 import models.Session;
 import models.SysData;
+import models.TurnIndicator;
+import models.Observer;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 public class Master {
     private static Master master;
@@ -18,7 +24,24 @@ public class Master {
     private ArrayList<Session> listSession;
     private ControleurPrincipal controleurPrincipal;
     private Partie partie; // Reference to the game (Partie)
-    
+    private List<Observer> observers = new CopyOnWriteArrayList<>();
+
+    // Register an observer
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    // Unregister an observer
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    // Notify all observers of an update
+    private void notifyObservers(String eventType, Object data) {
+        for (Observer observer : observers) {
+            observer.update(eventType, data);
+        }
+    }
     //TEST
     //tetsttt
     
@@ -34,34 +57,36 @@ public class Master {
     }
 
     public static void main(String[] args) {
-        master = new Master(); // Create the Master instance
+        master = new Master();
 
-        // Use java.io.InputStream to read the resource
         InputStream inputStream = SysData.class.getClassLoader().getResourceAsStream("questions.json");
         if (inputStream == null) {
             System.err.println("Error: questions.json not found.");
             return;
         }
 
-        // Load questions using SysData
         SysData.getInstance().loadQuestionsFromInputStream(inputStream);
 
-        master.startGame(); // Start the game
+        // Register observers
+        master.addObserver(new Scoreboard());
+        master.addObserver(new TurnIndicator());
+
+        master.startGame();
     }
 
     public void startGame() {
-        // Initialize game parameters
         ParametreJeu parametreJeu = new ParametreJeu();
-
-        // Create and start the game
         partie = new Partie(parametreJeu);
-
+        notifyObservers("GAME_STARTED", partie); // Notify observers
         System.out.println("Game setup is complete!");
     }
 
+
     public void launchSession(ParametreJeu parametreJeu) {
         if (isSessionLaunchable()) {
-            listSession.add(new Session(idSession, parametreJeu));
+            Session session = new Session(idSession, parametreJeu);
+            listSession.add(session);
+            notifyObservers("SESSION_LAUNCHED", session); // Notify observers
         }
         try {
             GestionDeSession gestion = GestionDeSession.getGestionDeSession();
@@ -70,6 +95,7 @@ public class Master {
             e.printStackTrace();
         }
     }
+
 
     public void addSession(Session session) {
         if (isSessionLaunchable()) {
