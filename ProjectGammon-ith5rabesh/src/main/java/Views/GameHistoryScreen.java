@@ -14,6 +14,7 @@ public class GameHistoryScreen extends JPanel {
     private DefaultTableModel tableModel;
 
     public GameHistoryScreen() {
+    	
         build();
     }
 

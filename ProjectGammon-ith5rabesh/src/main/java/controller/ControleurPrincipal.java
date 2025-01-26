@@ -16,10 +16,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Stack;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import models.ParametreJeu;
 import models.Session;
+import Views.GameHistoryScreen;
 import Views.VueIntermediairePartie;
 import Views.VueMenu;
 import Views.VuePartie;
@@ -34,7 +38,7 @@ public class ControleurPrincipal implements Controller{
 	private ControleurPrincipal controleurPrincipal;
 	protected ControleurIntermediairePartie controleurIntermediairePartie;
 	protected ControleurListeJoueur controleurListeJoueur;
-	
+
 	public ControleurPrincipal(Master master) {
 		this.master = master;
 		controleurPrincipal= this;
@@ -51,7 +55,6 @@ public class ControleurPrincipal implements Controller{
 		frame.setContentPane(vueMenu);
 	
 		frame.setVisible(true);
-
 		build();
 	}
 
@@ -177,6 +180,9 @@ public class ControleurPrincipal implements Controller{
 			}
 		});
 	}
+
+	
+
 
 	@Override
 	public JFrame getFrame() {

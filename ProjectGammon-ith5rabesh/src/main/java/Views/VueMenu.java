@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -22,6 +23,7 @@ public class VueMenu extends MonochromeVue {
     private MonochromeButton boutonAjouter;
     private MonochromeButton boutonAide;
     private MonochromeButton boutonQuitter;
+    private MonochromeButton HistoryOfGames;
     private MonochromeButton boutonQuestionsManagement;
 
     private ImageIcon icon;
@@ -73,6 +75,8 @@ public class VueMenu extends MonochromeVue {
         boutonQuestionsManagement = new MonochromeButton("Questions Management");
         conteneurbouton.add(boutonQuestionsManagement); // Add the new button
         
+        HistoryOfGames = new MonochromeButton("HistoryOfGames");
+        conteneurbouton.add(HistoryOfGames);
 
         boutonQuitter = new MonochromeButton("Quit");
         conteneurbouton.add(boutonQuitter);
@@ -85,6 +89,7 @@ public class VueMenu extends MonochromeVue {
         // Add ActionListener for Questions Management
         
         boutonQuestionsManagement.addActionListener(e -> openQuestionManagementScreen());
+        HistoryOfGames.addActionListener(e -> openGameHistoryScreen());
 
     }
     private void openQuestionManagementScreen() {
@@ -109,6 +114,27 @@ public class VueMenu extends MonochromeVue {
         }
     }
 
+    private void openGameHistoryScreen() {
+        System.out.println("Switching to Game History Screen...");
+
+        // Get the parent JFrame
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (parentFrame != null) {
+            // Clear the current content
+            parentFrame.getContentPane().removeAll();
+
+            // Add GameHistoryScreen as the new content
+            parentFrame.setContentPane(new GameHistoryScreen());
+
+            // Revalidate and repaint to refresh the frame
+            parentFrame.revalidate();
+            parentFrame.repaint();
+
+            System.out.println("Successfully switched to Game History Screen.");
+        } else {
+            System.err.println("Parent frame not found!");
+        }
+    }
 
 
     @Override
@@ -124,6 +150,11 @@ public class VueMenu extends MonochromeVue {
     public MonochromeButton getBoutonReprendrePartie() {
         return boutonReprendrePartie;
     }
+ // In VueIntermediairePartie
+    public MonochromeButton getHistoryOfGamesButton() {
+        return HistoryOfGames;  // Make sure the button is correctly initialized in the GUI
+    }
+
 
     public MonochromeButton getBoutonAjouter() {
         return boutonAjouter;
