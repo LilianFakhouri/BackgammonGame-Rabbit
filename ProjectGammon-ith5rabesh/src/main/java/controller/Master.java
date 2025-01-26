@@ -3,7 +3,6 @@ package controller;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import GUI.dicerollscreen;
 import Views.VuePartie;
 import models.GestionDeSession;
@@ -16,7 +15,8 @@ import models.TurnIndicator;
 import models.Observer;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
+import models.AbstractTemplatePlayerTurn;
+import models.RegularPlayerTurn;  // Add this import for the player turn subclass
 
 public class Master {
     private static Master master;
@@ -25,6 +25,7 @@ public class Master {
     private ControleurPrincipal controleurPrincipal;
     private Partie partie; // Reference to the game (Partie)
     private List<Observer> observers = new CopyOnWriteArrayList<>();
+    private AbstractTemplatePlayerTurn currentPlayerTurn; // Add a reference to the player's turn
 
     // Register an observer
     public void addObserver(Observer observer) {
@@ -42,9 +43,7 @@ public class Master {
             observer.update(eventType, data);
         }
     }
-    //TEST
-    //tetsttt
-    
+
     public Master() {
         Calendar date = Calendar.getInstance();
         idSession = 10000 * date.get(Calendar.MONTH)
@@ -79,8 +78,11 @@ public class Master {
         partie = new Partie(parametreJeu);
         notifyObservers("GAME_STARTED", partie); // Notify observers
         System.out.println("Game setup is complete!");
-    }
 
+        // Initialize the player's turn using the template pattern
+        currentPlayerTurn = new RegularPlayerTurn();  // Instantiate the appropriate player turn
+        currentPlayerTurn.playTurn();  // Execute the turn flow
+    }
 
     public void launchSession(ParametreJeu parametreJeu) {
         if (isSessionLaunchable()) {
@@ -95,7 +97,6 @@ public class Master {
             e.printStackTrace();
         }
     }
-
 
     public void addSession(Session session) {
         if (isSessionLaunchable()) {
@@ -113,13 +114,12 @@ public class Master {
             }
         }
     }
-//test
+
     public boolean isSessionLaunchable() {
         return listSession.size() != 1;
     }
 
     public Session getSession() {
-        // Modify for multi-threading if necessary
         return listSession.get(listSession.size() - 1);
     }
 
