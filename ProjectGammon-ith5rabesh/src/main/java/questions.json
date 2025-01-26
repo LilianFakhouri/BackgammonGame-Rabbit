@@ -1,1 +1,206 @@
-{"questions":[{"difficulty":"1","question":"What is a functional requirement in software engineering?","answers":["A statement describing the system's constraints, such as storage capacity.","A description of services or functionalities the system must provide.","A high-level goal that cannot be directly measured.","A requirement to use a specific programming language."],"correct_ans":"2"},{"difficulty":"1","question":"Which of the following is a key principle of Agile development?","answers":["Completing all design documentation before implementation begins."," Delivering software in a series of increments with customer involvement.","Avoiding changes in requirements once development starts.","Prioritizing process and tools over individuals and interactions."],"correct_ans":"2"},{"difficulty":"2","question":"What is the purpose of design patterns in software engineering?","answers":["To provide detailed, ready-to-use code for specific problems.","To offer a reusable solution to a common design problem.","To describe the user experience of a software product.","To define the steps for implementing software testing strategies."],"correct_ans":"2"},{"difficulty":"1","question":"What is the primary focus of Software Engineering?","answers":["Designing hardware components.","Developing theories and fundamentals of computing.","Delivering reliable and useful software products.","Creating user manuals for software systems."],"correct_ans":"3"},{"difficulty":"1","question":"Which of the following is NOT an attribute of good software?","answers":["Maintainability","Dependability","Simplicity","Efficiency"],"correct_ans":"3"},{"difficulty":"1","question":"What is the primary use of UML in system modeling?","answers":["To build hardware components.","To document legal agreements.","To write detailed project budgets.","To represent a system using diagrams."],"correct_ans":"4"},{"difficulty":"2","question":"Which type of testing focuses on the internal structure of the code?","answers":["White-box","Black-box","Integration","Unit"],"correct_ans":"1"}]}
+{
+    "questions": [{
+            "question": "Which of the following is NOT an attribute of good software?",
+            "answers": [
+                "Maintainability",
+                "Dependability",
+                "Simplicity",
+                "Efficiency"
+            ],
+            "correct_ans": "3",
+            "difficulty": "1"
+        }, {
+            "question": "What is the primary focus of Software Engineering?",
+            "answers": [
+                "Designing hardware components.",
+                "Developing theories and fundamentals of computing.",
+                "Delivering reliable and useful software products.",
+                "Creating user manuals for software systems."
+            ],
+            "correct_ans": "3",
+            "difficulty": "1"
+        },  {
+            "question": "Which of the following is a key principle of Agile development?",
+            "answers": [
+                "Completing all design documentation before implementation begins.",
+                " Delivering software in a series of increments with customer involvement.",
+                "Avoiding changes in requirements once development starts.",
+                "Prioritizing process and tools over individuals and interactions."
+            ],
+            "correct_ans": "2",
+            "difficulty": "1"
+        },  {
+            "question": " What is a functional requirement in software engineering?",
+            "answers": [
+                "A statement describing the system's constraints, such as storage capacity.",
+                "A description of services or functionalities the system must provide.",
+                "A high-level goal that cannot be directly measured.",
+                "A requirement to use a specific programming language during development."
+            ],
+            "correct_ans": "2",
+            "difficulty": "1"
+        },  {
+            "question": " What is the primary goal of a formal review in the software project lifecycle?",
+            "answers": [
+                "To evaluate the budget and schedule of the project.",
+                "To detect and correct errors in the software product.",
+                "To approve a product and allow progress to the next stage.",
+                "To train team members on quality standards."
+            ],
+            "correct_ans": "3",
+            "difficulty": "1"
+        },  {
+            "question": "What is the primary use of UML in system modeling?",
+            "answers": [
+                "To build hardware components.",
+                "To document legal agreements.",
+                "To write detailed project budgets.",
+                "To represent a system using diagrams."
+            ],
+            "correct_ans": "4",
+            "difficulty": "1"
+        },  {
+            "question": "What is the purpose of design patterns in software engineering?",
+            "answers": [
+                "To provide detailed, ready-to-use code for specific problems.",
+                "To offer a reusable solution to a common design problem.",
+                "To describe the user experience of a software product.",
+                "To define the steps for implementing software testing strategies."
+            ],
+            "correct_ans": "2",
+            "difficulty": "2"
+        },  {
+            "question": "What is a key principle of Agile?",
+            "answers": [
+                "Incremental delivery",
+                "Strict planning",
+                "No customer feedback",
+                "Complete documentation"
+            ],
+            "correct_ans": "1",
+            "difficulty": "3"
+        },
+        {
+            "question": "How does Agile handle requirement changes?",
+            "answers": [
+                "Rejects them",
+                "Embraces them",
+                "Delays them",
+                "Ignores them"
+            ],
+            "correct_ans": "2",
+            "difficulty": "3"
+        },
+        {
+            "question": "What is a functional requirement?",
+            "answers": [
+                "Focuses on user interface",
+                "Outlines system design",
+                "Specifies storage constraints",
+                "Describes what the system does"
+            ],
+            "correct_ans": "4",
+            "difficulty": "3"
+        },
+        {
+            "question": "What is the goal of requirements validation?",
+            "answers": [
+                "Finalize testing",
+                "Design the UI",
+                "Ensure completeness",
+                "Avoid reviews"
+            ],
+            "correct_ans": "3",
+            "difficulty": "2"
+        },
+        {
+            "question": "What is the purpose of a formal review?",
+            "answers": [
+                "Finalize the code",
+                "Find defects early",
+                "Plan testing",
+                "Validate deployment"
+            ],
+            "correct_ans": "2",
+            "difficulty": "3"
+        },
+        {
+            "question": "What happens in a peer review?",
+            "answers": [
+                "Find defects",
+                "Write code",
+                "Build architecture",
+                "Finalize deployment"
+            ],
+            "correct_ans": "1",
+            "difficulty": "2"
+        },
+        {
+            "question": "What does architectural design define?",
+            "answers": [
+                "Deployment steps",
+                "Testing plans",
+                "User interface",
+                "Structure and components"
+            ],
+            "correct_ans": "4",
+            "difficulty": "3"
+        },
+        {
+            "question": "What is a benefit of layered architecture?",
+            "answers": [
+                "Separation of concerns",
+                "Faster development",
+                "Fewer components",
+                "No interactions"
+            ],
+            "correct_ans": "1",
+            "difficulty": "2"
+        },
+        {
+            "question": "What is adaptive maintenance?",
+            "answers": [
+                "Adapting to new environments",
+                "Fixing bugs",
+                "Adding features",
+                "Updating UI"
+            ],
+            "correct_ans": "1",
+            "difficulty": "4"
+        },
+        {
+            "question": "What does regression testing ensure?",
+            "answers": [
+                "Fewer tests",
+                "No broken functionality",
+                "Updated requirements",
+                "Faster execution"
+            ],
+            "correct_ans": "2",
+            "difficulty": "3"
+        },
+        {
+            "question": "What is validation testing?",
+            "answers": [
+                "Focuses on performance",
+                "Targets UI issues",
+                "Ensures user needs are met",
+                "Checks for defects"
+            ],
+            "correct_ans": "3",
+            "difficulty": "2"
+        },
+        {
+            "question": "What does unit testing test",
+            "answers": [
+                "Individual components",
+                "Whole system",
+                "Security features",
+                "Performance levels"
+            ],
+            "correct_ans": "1",
+            "difficulty": "3"
+        }
+     
+    ]
+}
