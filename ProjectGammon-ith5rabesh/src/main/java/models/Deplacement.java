@@ -40,6 +40,41 @@ public class Deplacement
 		this.idDeplacement = Math.random()*Double.MAX_VALUE;
 	}
 	
+	public Deplacement(Case caseDepart, int diceValue, CouleurCase joueurCouleur, Partie partie) {
+	    this.caseDepart = caseDepart;
+	    this.siCaseBattue = false;
+	    this.idDeplacement = Math.random() * Double.MAX_VALUE;
+
+	    int positionDepart = caseDepart.getPosition();
+	    int positionArriver;
+
+	    // Calculate target position based on dice value
+	    if (diceValue < 0) {
+	        // Backward movement
+	        positionArriver = joueurCouleur == CouleurCase.NOIR
+	            ? positionDepart + Math.abs(diceValue)
+	            : positionDepart - Math.abs(diceValue);
+	    } else {
+	        // Forward movement
+	        positionArriver = joueurCouleur == CouleurCase.NOIR
+	            ? positionDepart - diceValue
+	            : positionDepart + diceValue;
+	    }
+
+	    // Validate target position
+	    if (positionArriver < 0 || positionArriver > 25) {
+	        throw new IllegalArgumentException("Invalid move: Target position " + positionArriver + " is out of bounds.");
+	    }
+
+	    // Assign target case
+	    this.caseArriver = partie.getTablier().getCase(positionArriver, joueurCouleur);
+	}
+
+
+	
+	
+
+	
 	public void sauvegarder(Element deplacementsXML)
 	{
 		Element deplacementXML = new Element("deplacement");
@@ -62,38 +97,19 @@ public class Deplacement
 			deplacementXML.addContent(siCaseBattueXML);
 	}
 	
-	public void charger(Element deplacement,Partie partie)
-	{
-		
-		//ATTENTION A NE PAS TOUCHER
-		
-				
-		int positionDepart = Integer.valueOf(deplacement.getChildText("caseDepart"));
-		int positionArriver = Integer.valueOf(deplacement.getChildText("caseArriver"));
-		CouleurCase couleur;
-		
-		if (positionDepart==0)
-			couleur = CouleurCase.BLANC;
-		else if (positionDepart==25)
-			couleur = CouleurCase.NOIR;
-		else if (positionArriver==0)
-			couleur = CouleurCase.NOIR;
-		else if (positionArriver==25)
-			couleur = CouleurCase.BLANC;
-		else if(positionDepart < positionArriver)
-			couleur = CouleurCase.BLANC;
-		else if(positionDepart > positionArriver)
-			couleur = CouleurCase.NOIR;
-		else 
-			couleur = CouleurCase.VIDE;	
-		
-		
-		
-		caseDepart = partie.getTablier().getCase(positionDepart,couleur);
-		caseArriver = partie.getTablier().getCase(positionArriver,couleur);
-		
-		siCaseBattue = Boolean.valueOf(deplacement.getChildText("siCaseBattue"));
+	public void charger(Element deplacement, Partie partie) {
+	    int positionDepart = Integer.valueOf(deplacement.getChildText("caseDepart"));
+	    int positionArriver = Integer.valueOf(deplacement.getChildText("caseArriver"));
+	    boolean siCaseBattue = Boolean.valueOf(deplacement.getChildText("siCaseBattue"));
+
+	    CouleurCase couleur = (positionDepart < positionArriver) ? CouleurCase.BLANC : CouleurCase.NOIR;
+
+	    this.caseDepart = partie.getTablier().getCase(positionDepart, couleur);
+	    this.caseArriver = partie.getTablier().getCase(positionArriver, couleur);
+	    this.siCaseBattue = siCaseBattue;
 	}
+
+
 
 	
 	public Case getCaseDepart() {

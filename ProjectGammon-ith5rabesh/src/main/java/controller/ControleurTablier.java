@@ -32,16 +32,18 @@ public class ControleurTablier implements Controller{
 	
 	private ControleurPartie controleurPartie;
 	private JFrame frame;
+	private String selectedLevel;
 
 
 
-	public ControleurTablier(Partie partie,VuePartie vuePartie,ControleurPartie controleurPartie)
+	public ControleurTablier(Partie partie,VuePartie vuePartie,ControleurPartie controleurPartie,String selectedLevel)
 	{
 		this.partie = partie;
 		this.tablier = partie.getTablier();
 		this.vuePartie = vuePartie;
 		this.vueTablier = vuePartie.getVueTablier();
 		this.controleurPartie = controleurPartie;
+		this.selectedLevel=selectedLevel;
 	
 		build();
 		vueTablier.updateDes();
@@ -118,7 +120,7 @@ public class ControleurTablier implements Controller{
 	                            if (caseButton.hasSurpriseStation()) {
 	                                vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station! Launch the dice again");
 	                                vueTablier.clearSurpriseStation(caseButton);
-	                                partie.lancerDes();
+	                                partie.lancerDes(selectedLevel);
 	                                return; // Exit early for surprise station handling
 	                            }
 
@@ -130,7 +132,7 @@ public class ControleurTablier implements Controller{
 	                                changerTour();
 	                            } else if (!partie.hasCoupPossible()) {
 	                                changerTour();
-	                                partie.lancerDes();
+	                                partie.lancerDes(selectedLevel);
 	                                if (!partie.hasCoupPossible()) {
 	                                    vuePartie.afficherFenetreDemande("No possible coup", "");
 	                                    changerTour();

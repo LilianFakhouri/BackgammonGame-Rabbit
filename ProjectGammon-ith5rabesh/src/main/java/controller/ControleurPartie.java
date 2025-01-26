@@ -82,29 +82,46 @@ public class ControleurPartie implements Controller {
 
 	@Deprecated
 	public ControleurPartie(Partie partie) {
-		controleurPartie = this;
-		// testInitialisation();
-		vuePartie = new VuePartie(partie);
+	    controleurPartie = this;
 
-		build();
-		controleurTablier = new ControleurTablier(partie, vuePartie, this);
+	    // Initialize VuePartie with the Partie
+	    vuePartie = new VuePartie(partie);
+
+	    // Retrieve the selected level from VuePartie
+	    String selectedLevel = vuePartie.getSelectedLevel(); // Ensure this method exists in VuePartie
+
+	    // Build the game components
+	    build();
+
+	    // Initialize ControleurTablier with the selected level
+	    controleurTablier = new ControleurTablier(partie, vuePartie, this, selectedLevel);
 	}
+
 
 	public ControleurPartie(Session session, Controller controleur) {
-		couleurVideau = CouleurCase.VIDE;
-		this.controleur = controleur;
-		controleurPartie = this;
-		this.session = session;
-		// testInitialisation();
-		vuePartie = new VuePartie(session.getPartieEnCours());
-		timerRevuePartie = null;
-		build();
+	    couleurVideau = CouleurCase.VIDE;
+	    this.controleur = controleur;
+	    controleurPartie = this;
+	    this.session = session;
 
-		controleurTablier = new ControleurTablier(session.getPartieEnCours(), vuePartie, this);
-		vuePartie.getPanelEnCoursVueBas().updateScore(
-				session.getScores().get(session.getParametreSession().getJoueurBlanc()),
-				session.getScores().get(session.getParametreSession().getJoueurNoir()));
+	    // Initialize VuePartie
+	    vuePartie = new VuePartie(session.getPartieEnCours());
+	    timerRevuePartie = null;
+	    build();
+
+	    // Get the selected level from VuePartie
+	    String selectedLevel = vuePartie.getSelectedLevel();
+
+	    // Pass the selectedLevel to ControleurTablier
+	    controleurTablier = new ControleurTablier(session.getPartieEnCours(), vuePartie, this, selectedLevel);
+
+	    // Update scores in VuePartie
+	    vuePartie.getPanelEnCoursVueBas().updateScore(
+	        session.getScores().get(session.getParametreSession().getJoueurBlanc()),
+	        session.getScores().get(session.getParametreSession().getJoueurNoir())
+	    );
 	}
+
 
 	private void build() {
 		listenerBack();
@@ -437,48 +454,29 @@ public class ControleurPartie implements Controller {
 	        @Override
 	        public void mouseReleased(MouseEvent arg0) {
 	            if (!session.getPartieEnCours().isPartieFini()) {
-	            	if (("Medium".equals(vuePartie.getSelectedLevel()))||("Easy".equals(vuePartie.getSelectedLevel()))) {
-	            		session.getPartieEnCours().lancerDes(); // Roll all standard dice
-	            		}
-	                // Handle special dice for "Medium" level
-	                if ("Medium".equals(vuePartie.getSelectedLevel())) {
-	                    // Roll questions dice
-	                    int specialDiceValue = new Random().nextInt(3) + 1;
-	                    vuePartie.getQuestionDiceGui().setValue(specialDiceValue);
-	                    vuePartie.getQuestionDiceGui().setVisible(true);  // Make question dice visible
-	                    
-	                    vuePartie.getQuestionDiceGui().roll();
+	                String selectedLevel = vuePartie.getSelectedLevel();
 
-	                
-	                }else if ("Hard".equals(vuePartie.getSelectedLevel())) {
-	                    // Roll and set values for the first enhanced dice
-	                    int enhancedDiceValue1 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
-	                    vuePartie.getenhancedDiceGui().setValue(enhancedDiceValue1);
-	                    vuePartie.getenhancedDiceGui().setVisible(true);
+	                // Roll standard dice based on the level
+	                session.getPartieEnCours().lancerDes(selectedLevel);
 
-	                    // Roll and set values for the second enhanced dice
-	                    int enhancedDiceValue2 = new Random().nextInt(6 - (-3) + 1) + (-3); // Random between -3 and 6
-	                    vuePartie.getenhancedDiceGui2().setValue(enhancedDiceValue2); // Ensure a second getter exists
-	                    vuePartie.getenhancedDiceGui2().setVisible(true);
-
-	                    // Roll and display the question dice
-	                    int questionDiceValue = new Random().nextInt(3) + 1; // Random between 1 and 3
+	                // Add question dice for Medium and Hard levels
+	                if ("Medium".equals(selectedLevel) || "Hard".equals(selectedLevel)) {
+	                    int questionDiceValue = new Random().nextInt(3) + 1; // Random value between 1 and 3
 	                    vuePartie.getQuestionDiceGui().setValue(questionDiceValue);
 	                    vuePartie.getQuestionDiceGui().setVisible(true);
 	                    vuePartie.getQuestionDiceGui().roll();
-	                    
-	                    session.getPartieEnCours().setEnhancedDiceValues(enhancedDiceValue1, enhancedDiceValue2);
-	                
 	                }
 
+	                // Update UI
 	                if (controleurTablier.getHorloge() != null) {
 	                    controleurTablier.getHorloge().restart();
 	                }
+
 	                vuePartie.updateUI();
 	                vuePartie.getVueTablier().updateUI();
 	                vuePartie.getVueTablier().updateDes();
 
-	                // Check if there are possible moves, if not, change turn
+	                // Check for possible moves
 	                if (!session.getPartieEnCours().hasCoupPossible()) {
 	                    vuePartie.afficherFenetreDemande("No possible move", "");
 	                    controleurTablier.changerTour();
@@ -487,6 +485,7 @@ public class ControleurPartie implements Controller {
 	        }
 	    });
 	}
+
 
 	
 	
@@ -791,16 +790,25 @@ public class ControleurPartie implements Controller {
 	}
 
 	public void nouvellePartie() {
-		session.nouvellePartie();
-		session.LancerPartie();
+	    // Start a new game session
+	    session.nouvellePartie();
+	    session.LancerPartie();
 
-		vuePartie.setPartie(session.getPartieEnCours());
-		vuePartie.setEtat(SessionState.IN_PROGRESS);
-		controleurTablier = new ControleurTablier(session.getPartieEnCours(), vuePartie, this);
+	    // Update the current game in VuePartie
+	    vuePartie.setPartie(session.getPartieEnCours());
+	    vuePartie.setEtat(SessionState.IN_PROGRESS);
 
-		session.LancerPartie();
-		vuePartie.updateUI();
+	    // Retrieve the selected level from VuePartie
+	    String selectedLevel = vuePartie.getSelectedLevel(); // Ensure this method exists in VuePartie
+
+	    // Re-initialize the ControleurTablier with the selected level
+	    controleurTablier = new ControleurTablier(session.getPartieEnCours(), vuePartie, this, selectedLevel);
+
+	    // Launch the new game
+	    session.LancerPartie();
+	    vuePartie.updateUI();
 	}
+
 
 	public void finPartie() {
 	    if (controleurTablier.getHorloge() != null) {

@@ -361,19 +361,31 @@ public class Partie {
 	/**
 	 * 
 	 */
-	public void lancerDes() {
-		deSixFaces = new ArrayList<DeSixFaces>();
-		deSixFaces.add(new DeSixFaces(joueurEnCour));
-		deSixFaces.add(new DeSixFaces(joueurEnCour));
-		if (deSixFaces.get(0).getValeur() == deSixFaces.get(1).getValeur()) {
-			deSixFaces.add(new DeSixFaces(joueurEnCour, deSixFaces.get(0)
-					.getValeur()));
-			deSixFaces.add(new DeSixFaces(joueurEnCour, deSixFaces.get(0)
-					.getValeur()));
-		}	
-		tourFini=false;
-		debutTour();
+	public void lancerDes(String selectedLevel) {
+	    deSixFaces = new ArrayList<>();
+	    int minValue = 1; // Default range for Easy and Medium
+	    int maxValue = 6;
+
+	    // Adjust range for Hard level
+	    if ("Hard".equals(selectedLevel)) {
+	        minValue = -3;
+	        maxValue = 6;
+	    }
+
+	    // Initialize two dice with random values
+	    deSixFaces.add(new DeSixFaces(joueurEnCour, (int) (Math.random() * (maxValue - minValue + 1)) + minValue));
+	    deSixFaces.add(new DeSixFaces(joueurEnCour, (int) (Math.random() * (maxValue - minValue + 1)) + minValue));
+
+	    // If the two dice have the same value, add two more dice with the same value
+	    if (deSixFaces.get(0).getValeur() == deSixFaces.get(1).getValeur()) {
+	        deSixFaces.add(new DeSixFaces(joueurEnCour, deSixFaces.get(0).getValeur()));
+	        deSixFaces.add(new DeSixFaces(joueurEnCour, deSixFaces.get(0).getValeur()));
+	    }
+
+	    tourFini = false;
+	    debutTour();
 	}
+
 
 	public void doublerVideau() {
 		videau.doubler();
@@ -443,38 +455,39 @@ public class Partie {
  * @return
  */
 	public boolean isCoupPossible(Case caseDepart, Case caseArrivee) {
-		// verification de l'existance du de;
-				boolean siDeExiste = false;
-				deUtiliser =0;
-				
-				for (int i=0;i<deSixFaces.size();i++){
-					
-					if(peutMarquerCetteDame(caseDepart,deSixFaces.get(i)) && caseArrivee.isCaseVictoire() && caseArrivee.getCouleurDame() == caseDepart.getCouleurDame())
-					{
-						siDeExiste = true;
-						deUtiliser = i;
-					}
-					else if (((tablier.distanceDeuxCase(caseDepart, caseArrivee) == deSixFaces.get(i).getValeur() 
-							&& joueurEnCour == CouleurCase.BLANC)
-							|| (tablier.distanceDeuxCase(caseDepart, caseArrivee) == -deSixFaces.get(i).getValeur() 
-									&& joueurEnCour == CouleurCase.NOIR))
-								&& !deSixFaces.get(i).isUtilise())
-					{
-						siDeExiste = true;
-						deUtiliser = i;
-					}
+	    boolean siDeExiste = false;
+	    deUtiliser = 0;
 
-				}
-				if (!siDeExiste)
-					return false;
-				
-				if (tablier.sensDeplacementCorrect(caseDepart, caseArrivee))
-				{
-					return tablier.isCoupPossible(caseDepart, caseArrivee);
-				}
-				else
-					return false;
-			}
+	    for (int i = 0; i < deSixFaces.size(); i++) {
+	        int diceValue = deSixFaces.get(i).getValeur();
+
+	        // Skip if the dice value is 0
+	        if (diceValue == 0) {
+	            continue;
+	        }
+
+	        int distance = tablier.distanceDeuxCase(caseDepart, caseArrivee);
+
+	        // Allow moves using absolute dice values
+	        if ((Math.abs(distance) == Math.abs(diceValue)) && !deSixFaces.get(i).isUtilise()) {
+	            // Check if movement direction is valid for current player
+	            if ((distance > 0 && joueurEnCour == CouleurCase.BLANC) ||
+	                (distance < 0 && joueurEnCour == CouleurCase.NOIR) ||
+	                diceValue < 0) { // Allow backward movement
+	                siDeExiste = true;
+	                deUtiliser = i;
+	                break;
+	            }
+	        }
+	    }
+
+	    if (!siDeExiste) return false;
+
+	    // Check overall movement validity
+	    return tablier.isCoupPossible(caseDepart, caseArrivee);
+	}
+
+
 
 	/**
 	 * 
@@ -482,31 +495,61 @@ public class Partie {
 	 * @return
 	 */
 	public boolean isCoupPossible(Case caseDepart) {
-		boolean possible=false;
-		for (DeSixFaces de : deSixFaces) {
-			if(isCoupPossible(caseDepart,tablier.getCaseADistance(caseDepart, de)) 
-					&& !de.isUtilise())
-				possible=true;
-		}
-		return possible;
+	    boolean possible = false;
+
+	    for (DeSixFaces de : deSixFaces) {
+	        if (!de.isUtilise()) {
+	            Case targetCase = tablier.getCaseADistance(caseDepart, de);
+
+	            // Allow backward moves by validating the dice and target case
+	            if (isCoupPossible(caseDepart, targetCase)) {
+	                possible = true;
+	                break;
+	            }
+	        }
+	    }
+
+	    return possible;
 	}
+
 
 	/**
 	 * 
 	 * @return
 	 */
 	public boolean hasCoupPossible() {
-		for (Case caseDame : tablier.getAllCase()) {
-			if((!tablier.isDameDansCaseBarre(joueurEnCour) && caseDame.getCouleurDame() == joueurEnCour)
-					|| caseDame.isCaseBarre())
-				for (DeSixFaces de : deSixFaces) {
-					if(!de.isUtilise())
-						if(isCoupPossible(caseDame,tablier.getCaseADistance(caseDame, de)))
-							return true;
-				}
-		}
-		return false;	
+	    // Check if the current player has pieces in the bar
+	    if (tablier.isDameDansCaseBarre(joueurEnCour)) {
+	        for (DeSixFaces de : deSixFaces) {
+	            if (de.getValeur() != 0 && !de.isUtilise()) {
+	                Case caseBarre = tablier.getCaseBarre(joueurEnCour);
+	                Case targetCase = tablier.getCase(caseBarre.getPosition() + de.getValeur(), joueurEnCour);
+	                if (targetCase != null && tablier.isCoupPossible(caseBarre, targetCase)) {
+	                    return true;
+	                }
+	            }
+	        }
+	        return false; // No valid moves from the bar
+	    }
+
+	    // If no pieces in the bar, check all board positions
+	    for (Case caseDame : tablier.getAllCase()) {
+	        if (caseDame.getCouleurDame() == joueurEnCour) {
+	            for (DeSixFaces de : deSixFaces) {
+	                if (de.getValeur() != 0 && !de.isUtilise()) {
+	                    Case targetCase = tablier.getCaseADistance(caseDame, de);
+	                    if (tablier.isCoupPossible(caseDame, targetCase)) {
+	                        return true;
+	                    }
+	                }
+	            }
+	        }
+	    }
+	    return false; // No valid moves
 	}
+
+
+
 /**
  * 
  * @return
