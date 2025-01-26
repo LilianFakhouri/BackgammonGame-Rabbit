@@ -113,7 +113,7 @@ public class Master {
             }
         }
     }
-
+//test
     public boolean isSessionLaunchable() {
         return listSession.size() != 1;
     }
