@@ -14,8 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.SortedSet;
@@ -819,6 +823,9 @@ public class ControleurPartie implements Controller {
 	    // Stop the game timer
 	    vuePartie.stopGameTimer();
 
+	    // Save the game history (add this part)
+	    saveGameHistory();
+
 	    session.finPartie();
 
 	    vuePartie.getPanelEnCoursVueBas().updateScore(
@@ -836,6 +843,39 @@ public class ControleurPartie implements Controller {
 	    }
 	    vuePartie.setEtat(SessionState.FINISHED);
 	}
+
+	// Method to save the game history
+	private void saveGameHistory() {
+	    try {
+	        // You can define the history format (e.g., JSON, XML, or a custom format)
+	        // Here we're assuming you have a method to get the game history as a string or object
+	        String gameHistory = getGameHistoryAsString();
+
+	        // Save to file (you can use a more sophisticated method if needed)
+	        File historyFile = new File("game_history.json"); // Use a unique file for each session if needed
+	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(historyFile, true))) {
+	            writer.write(gameHistory);
+	            writer.newLine(); // Optionally add a line break between games
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	// Example method to get the game history as a string (customize based on your data structure)
+	private String getGameHistoryAsString() {
+	    // Collect game data like players, scores, winner, etc.
+	    StringBuilder history = new StringBuilder();
+	    history.append("Game Date: ").append(LocalDateTime.now().toString()).append("\n");
+	    history.append("Player 1: ").append(session.getParametreSession().getJoueurBlanc().getPseudo()).append("\n");
+	    history.append("Player 2: ").append(session.getParametreSession().getJoueurNoir().getPseudo()).append("\n");
+	    history.append("Winner: ").append(session.getPartieEnCours().getParametreJeu()
+	            .getJoueur(session.getPartieEnCours().getJoueurEnCour()).getPseudo()).append("\n");
+	    
+	    // Add any additional details you need
+	    return history.toString();
+	}
+
 
 
 	public Partie getPartie() {

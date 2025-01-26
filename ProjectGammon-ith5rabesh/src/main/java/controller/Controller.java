@@ -8,9 +8,6 @@ public interface Controller {
 	public JFrame getFrame();
 	public void retour();
 	
-	//test
-	//testt22
-	//shahd
-	//Nadeeen
+
 	
 }

@@ -171,17 +171,10 @@ public class Tablier
 
 
 	
-	public int distanceDeuxCase(Case cDepart, Case cArrivee) {
-	    if (cDepart == null || cArrivee == null) {
-	        System.out.println("Invalid cases provided for distanceDeuxCase. cDepart: " 
-	                           + (cDepart == null ? "null" : cDepart.getPosition()) 
-	                           + ", cArrivee: " 
-	                           + (cArrivee == null ? "null" : cArrivee.getPosition()));
-	        return Integer.MAX_VALUE; // Or some other invalid value to indicate an error
-	    }
-	    return cArrivee.getPosition() - cDepart.getPosition();
+	public int distanceDeuxCase(Case cDepart, Case cArrivee)
+	{
+		return cArrivee.getPosition()-cDepart.getPosition();
 	}
-
 	
 	public boolean sensDeplacementCorrect(Case cDepart, Case cArrivee)
 	{
@@ -197,35 +190,34 @@ public class Tablier
 	 * @param cArrivee case arrivee
 	 * @return boolean
 	 */
-	public boolean isCoupPossible(Case cDepart, Case cArrivee) {
-	    if (cDepart == null || cArrivee == null) {
-	        System.out.println("Invalid move. cDepart: " 
-	                           + (cDepart == null ? "null" : cDepart.getPosition()) 
-	                           + ", cArrivee: " 
-	                           + (cArrivee == null ? "null" : cArrivee.getPosition()));
-	        return false;
-	    }
+	public boolean isCoupPossible(Case cDepart, Case cArrivee)
+	{
+		if (cDepart.getNbDame() == 0)
+			return false;
+		
+		if(getCaseBarre(cDepart.getCouleurDame()).getNbDame() !=0 
+				&& (cDepart.getPosition() != 0 && cDepart.getCouleurDame() ==CouleurCase.BLANC 
+				|| cDepart.getPosition() != 25 && cDepart.getCouleurDame()==CouleurCase.NOIR ))
+				return false;
+		
+		if (cArrivee.isCaseVictoire()){
+			if (peutMarquerDame(cDepart.getCouleurDame()) 
+					&& cArrivee.getCouleurDame() == cDepart.getCouleurDame())
+				return true;
+			else
+				return false;
+		}
 
-	    if (cDepart.getNbDame() == 0) {
-	        return false;
-	    }
-
-	    // Prevent movement against the rules (backward movement check)
-	    int distance = distanceDeuxCase(cDepart, cArrivee);
-	    if (distance < 0 && cDepart.getCouleurDame() == CouleurCase.BLANC 
-	        || distance > 0 && cDepart.getCouleurDame() == CouleurCase.NOIR) {
-	        return true; // Allow backward movement for negative dice
-	    }
-
-	    // Check standard rules for capture or valid arrival
-	    if (cDepart.getCouleurDame() == cArrivee.getCouleurDame()) {
-	        return true;
-	    } else {
-	        return cArrivee.getNbDame() <= 1; // Can only land on an empty or single-opponent piece case
-	    }
+		if(cDepart.getCouleurDame() == cArrivee.getCouleurDame())
+			return true;
+		else
+		{
+			if (cArrivee.getNbDame()<=1)
+				return true;
+			else
+				return false;
+		}
 	}
-
-
 	
 	public boolean siDameManger(Case cDepart, Case cArrivee)
 	{
@@ -366,47 +358,28 @@ public class Tablier
 	 * @param de Un de 
 	 * @return Case Arivee
 	 */
-	public Case getCaseADistance(Case c, DeSixFaces de) {
-	    if (c == null || de == null) {
-	        System.out.println("Invalid input for getCaseADistance. c: " 
-	                           + (c == null ? "null" : c.getPosition()) 
-	                           + ", de: " 
-	                           + (de == null ? "null" : de.getValeur()));
-	        return null;
-	    }
-
-	    int diceValue = de.getValeur();
-	    if (diceValue < 0) {
-	        diceValue = Math.abs(diceValue); // Convert to positive for backward movement
-	    }
-
-	    int targetPosition;
-
-	    // Adjust position based on player color and dice value
-	    if (c.getCouleurDame() == CouleurCase.BLANC) {
-	        targetPosition = c.getPosition() + (de.getValeur() < 0 ? -diceValue : diceValue);
-	    } else {
-	        targetPosition = c.getPosition() - (de.getValeur() < 0 ? -diceValue : diceValue);
-	    }
-
-	    // Handle out-of-bounds cases
-	    if (targetPosition < 1 || targetPosition > 24) {
-	        if (c.getCouleurDame() == CouleurCase.BLANC && targetPosition > 24) {
-	            return caseVictoire.get(0); // White victory
-	        } else if (c.getCouleurDame() == CouleurCase.NOIR && targetPosition < 1) {
-	            return caseVictoire.get(1); // Black victory
-	        } else {
-	            return null; // Invalid move
-	        }
-	    }
-
-	    // Return the corresponding case
-	    return listeCase.get(targetPosition - 1);
+	public Case getCaseADistance(Case c, DeSixFaces de)
+	{
+		if(c.getCouleurDame() == CouleurCase.BLANC){
+			int blacnADistance = c.getPosition()+de.getValeur();
+			if(blacnADistance <= 24){
+				return listeCase.get(blacnADistance-1);
+			}
+			else{
+				return caseVictoire.get(0);
+			}
+		}
+		else
+		{
+			int noirADistance =c.getPosition()-de.getValeur();
+			if(noirADistance >= 1){
+				return listeCase.get(noirADistance-1);
+			}
+			else{
+				return caseVictoire.get(1);
+			}
+		}	
 	}
-
-
-
-
 	
     /**
      * Verifier dans CaseBarre (Noir ou Blanc) il y a des damns
@@ -427,27 +400,24 @@ public class Tablier
 	 * @param couleur Couleur de joueur en cours
 	 * @return une liste de tous les cases possibles
 	 */
-	public List<Coup> getCoupsPossibles(DeSixFaces de, CouleurCase couleur) {
-	    List<Coup> possibleMoves = new ArrayList<>();
-
-	    for (Case currentCase : listeCase) {
-	        if (currentCase.getCouleurDame() == couleur && !de.isUtilise()) {
-	            int targetPosition = couleur == CouleurCase.BLANC
-	                ? currentCase.getPosition() + de.getValeur()
-	                : currentCase.getPosition() - de.getValeur();
-
-	            if (targetPosition >= 1 && targetPosition <= 24) {
-	                Case targetCase = listeCase.get(targetPosition - 1);
-	                if (isCoupPossible(currentCase, targetCase)) {
-	                    possibleMoves.add(new Coup(currentCase, targetCase));
-	                }
-	            }
-	        }
-	    }
-
-	    return possibleMoves;
+	public List<Coup> getCoupsPossibles(DeSixFaces de,CouleurCase couleur)
+	{
+		List<Coup> liste = new ArrayList<Coup>();
+		
+		List<Case> listeCase = getAllCase();
+		
+		for (Case case1 : listeCase) {
+			if(case1.getCouleurDame()== couleur && !de.isUtilise()){
+				Case tmpDepart = case1;
+				Case tmpArrivee = getCaseADistance(tmpDepart,de);
+				if(isCoupPossible(tmpDepart,tmpArrivee)){
+					Coup tmpCoup = new Coup(tmpDepart,tmpArrivee);
+					liste.add(tmpCoup);
+				}
+			}
+		}
+		return liste;
 	}
-
 	/**
 	 * Recuperer tous les coups possibles selon les valeurs de des
 	 * @param des Une liste de des
@@ -630,25 +600,21 @@ public class Tablier
 		return caseBarre;
 	}
 	
-	public Case getCase(int position, CouleurCase couleur) {
-	    if (position >= 1 && position <= 24) {
-	        return listeCase.get(position - 1);
-	    } else if (position == 25 && couleur.equals(CouleurCase.BLANC)) {
-	        return caseVictoire.get(0);
-	    } else if (position == 0 && couleur.equals(CouleurCase.NOIR)) {
-	        return caseVictoire.get(1);
-	    } else if (position == 0 && couleur.equals(CouleurCase.BLANC)) {
-	        return caseBarre.get(0);
-	    } else if (position == 25 && couleur.equals(CouleurCase.NOIR)) {
-	        return caseBarre.get(1);
-	    } else {
-	        // Return null for invalid positions instead of throwing exceptions
-	        System.out.println("Invalid position requested: " + position);
-	        return null;
-	    }
+	public Case getCase(int position,CouleurCase couleur) {
+		
+		if (position >=1 && position <= 24)
+			return listeCase.get(position-1);
+		else if (position == 25 && couleur.equals(CouleurCase.BLANC))
+			return caseVictoire.get(0);
+		else if (position == 0 && couleur.equals(CouleurCase.NOIR))
+			return caseVictoire.get(1);
+		else if (position == 0 && couleur.equals(CouleurCase.BLANC))
+			return caseBarre.get(0);
+		else if( position == 25 && couleur.equals(CouleurCase.NOIR))
+			return caseBarre.get(1);
+		else
+			return null;
 	}
-
-
 	
 	public Case getCaseBarre(CouleurCase couleur) {
 		if(couleur == CouleurCase.BLANC)
@@ -739,18 +705,9 @@ public class Tablier
 	}
 
 
-	private int[] enhancedDiceValues = new int[2]; // Array to store the two dice values
-
-	public void setEnhancedDiceValues(int value1, int value2) {
-	    this.enhancedDiceValues[0] = value1;
-	    this.enhancedDiceValues[1] = value2;
-	}
-
-	public int[] getEnhancedDiceValues() {
-	    return enhancedDiceValues;
-	}
 
 	
-
+	
+	
 	
 }
