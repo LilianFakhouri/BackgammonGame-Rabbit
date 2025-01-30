@@ -3,7 +3,7 @@
   <joueurs id="139667">
     <pseudo>test1</pseudo>
     <imageSource />
-    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
       <nbVictoires>0</nbVictoires>
@@ -15,7 +15,7 @@
   <joueurs id="139680">
     <pseudo>test2</pseudo>
     <imageSource>images/avatars/choupi.png</imageSource>
-    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
       <nbVictoires>0</nbVictoires>
@@ -27,7 +27,7 @@
   <joueurs id="1918">
     <pseudo>Nadeen</pseudo>
     <imageSource>images/avatars/fleur.png</imageSource>
-    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
       <nbVictoires>0</nbVictoires>
@@ -39,7 +39,7 @@
   <joueurs id="1928">
     <pseudo>Lilian</pseudo>
     <imageSource>images/avatars/chouette.png</imageSource>
-    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
       <nbVictoires>0</nbVictoires>
