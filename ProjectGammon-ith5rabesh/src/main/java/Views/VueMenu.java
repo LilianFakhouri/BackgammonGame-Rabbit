@@ -90,7 +90,6 @@ public class VueMenu extends MonochromeVue {
         conteneurgrid.add(conteneurbouton);
 
         // Add ActionListeners for existing buttons
-       
         HistoryOfGames.addActionListener(e -> openGameHistoryScreen());
 
         // Create a top-right panel for the Manager button
@@ -144,25 +143,12 @@ public class VueMenu extends MonochromeVue {
     }
 
     private void openGameHistoryScreen() {
-        System.out.println("Switching to Game History Screen...");
-
-        // Get the parent JFrame
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        if (parentFrame != null) {
-            // Clear the current content
-            parentFrame.getContentPane().removeAll();
-
-            // Add GameHistoryScreen as the new content
-            parentFrame.setContentPane(new GameHistoryScreen());
-
-            // Revalidate and repaint to refresh the frame
-            parentFrame.revalidate();
-            parentFrame.repaint();
-
-            System.out.println("Successfully switched to Game History Screen.");
-        } else {
-            System.err.println("Parent frame not found!");
-        }
+        JFrame gameHistoryFrame = new JFrame("Game History");
+        gameHistoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameHistoryFrame.setSize(800, 600);
+        gameHistoryFrame.setLocationRelativeTo(null); // Center the frame
+        gameHistoryFrame.add(new GameHistoryScreen(this)); // Pass VueMenu reference
+        gameHistoryFrame.setVisible(true);
     }
 
 
