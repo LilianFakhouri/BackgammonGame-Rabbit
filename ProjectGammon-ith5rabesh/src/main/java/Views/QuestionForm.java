@@ -5,7 +5,6 @@ import java.awt.*;
 import models.Question;
 import models.SysData;
 import Utils.Level;
-import controller.EmailService;
 
 public class QuestionForm extends JDialog {
 
@@ -134,6 +133,9 @@ public class QuestionForm extends JDialog {
         button.setBorder(BorderFactory.createLineBorder(new Color(0x888888)));
     }
 
+    /**
+     * Saves the question, either adding or updating it in the system.
+     */
     private void saveQuestion() {
         String questionContent = questionField.getText().trim();
         String answer1 = answer1Field.getText().trim();
@@ -148,9 +150,7 @@ public class QuestionForm extends JDialog {
             return;
         }
 
-        boolean isNewQuestion = (question == null); // Check if this is a new question
-
-        if (isNewQuestion) {
+        if (question == null) {
             // Add new question
             question = new Question(questionContent, difficulty, answer1, answer2, answer3, answer4, correctAnswer);
             SysData.getInstance().addQuestion(question);
@@ -166,71 +166,6 @@ public class QuestionForm extends JDialog {
         }
 
         SysData.getInstance().writeQuestionsToFile("questions.json");
-        
-        // **Send email notification only if it's a new question**
-        if (isNewQuestion) {
-            sendQuestionAddedEmail(questionContent, difficulty);
-        }
-
         dispose();
     }
-
-    private void sendQuestionAddedEmail(String questionContent, Level difficulty) {
-        String answer1 = answer1Field.getText().trim();
-        String answer2 = answer2Field.getText().trim();
-        String answer3 = answer3Field.getText().trim();
-        String answer4 = answer4Field.getText().trim();
-        int correctAnswer = (int) correctAnswerBox.getSelectedItem();
-
-        System.out.println("📧 Preparing to send email...");
-        
-        new Thread(() -> {
-            try {
-                System.out.println("📤 Sending email in background thread...");
-                EmailService emailService = new EmailService();
-                String recipientEmail = "rabbitdmn@gmail.com"; // Replace with your email
-                String subject = "New Question Added";
-                String content = "A new question has been added to the system:\n\n"
-                        + "Question: " + questionContent + "\n"
-                        + "Difficulty: " + difficulty.name() + "\n\n"
-                        + "Answers:\n"
-                        + "1. " + answer1 + "\n"
-                        + "2. " + answer2 + "\n"
-                        + "3. " + answer3 + "\n"
-                        + "4. " + answer4 + "\n\n"
-                        + "Correct Answer: " + correctAnswer + " (" + getCorrectAnswerText(correctAnswer) + ")\n\n"
-                        + "Check the system for more details.";
-
-                emailService.sendEmail(recipientEmail, subject, content);
-                System.out.println("✅ Email sent successfully!");
-            } catch (Exception e) {
-                System.err.println("❌ Failed to send email.");
-                e.printStackTrace();
-            }
-        }).start(); // Start the thread
-    }
-
-    /**
-     * Returns the text of the correct answer based on the selected number.
-     *
-     * @param correctAnswer The number of the correct answer (1-4).
-     * @return The text of the correct answer.
-     */
-    private String getCorrectAnswerText(int correctAnswer) {
-        switch (correctAnswer) {
-            case 1:
-                return answer1Field.getText().trim();
-            case 2:
-                return answer2Field.getText().trim();
-            case 3:
-                return answer3Field.getText().trim();
-            case 4:
-                return answer4Field.getText().trim();
-            default:
-                return "Unknown";
-        }
-    }
-
-
-
 }
