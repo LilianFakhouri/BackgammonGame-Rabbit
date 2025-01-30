@@ -17,7 +17,7 @@ public class EmailService {
     private static final String SMTP_PORT = "587";            // TLS port
     private static final String EMAIL_USERNAME = "rabbitdmn@gmail.com"; // Replace with your Gmail address
     private static final String EMAIL_PASSWORD = "wlhg kfao lpzh pwwt";  // Replace with your Gmail App Password
-
+//test
     /**
      * Constructor for EmailService.
      * Used to initialize the email service.
