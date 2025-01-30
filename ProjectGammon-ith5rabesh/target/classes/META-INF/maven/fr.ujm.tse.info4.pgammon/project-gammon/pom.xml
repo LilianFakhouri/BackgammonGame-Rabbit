@@ -23,49 +23,39 @@
   </repositories>
 
   <dependencies>
-    <!-- JUnit for Unit Testing -->
+    <!-- JUnit Dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- JDOM for XML Handling -->
+    
+    <!-- JDOM Dependency -->
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom2</artifactId>
       <version>2.0.6</version>
-    </dependency>
+    </dependency>  
 
-    <!-- JSON-Simple for JSON Handling -->
+    <!-- JSON-Simple Dependency -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
     </dependency>
 
-    <!-- SLF4J Logging API -->
+    <!-- SLF4J Logging (Optional) -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>2.0.7</version>
     </dependency>
-    <!-- SLF4J Simple Implementation -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>2.0.7</version>
     </dependency>
-
-    <!-- Optional: Additional Logging Implementation (Logback) -->
-    <!-- Uncomment if needed
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.4.8</version>
-    </dependency>
-    -->
   </dependencies>
 
   <build>
@@ -74,7 +64,7 @@
       <resource>
         <directory>src/main/resources</directory>
         <includes>
-          <include>*/</include>
+          <include>**/*</include>
         </includes>
       </resource>
     </resources>
@@ -112,7 +102,7 @@
         </executions>
       </plugin>
 
-      <!-- Maven Surefire Plugin for Unit Testing -->
+      <!-- Maven Surefire Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

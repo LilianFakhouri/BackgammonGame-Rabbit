@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import org.jdom2.Element;
-import org.jdom2.Document;
-import org.jdom2.input.SAXBuilder;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -139,8 +137,6 @@ public class VuePartie extends MonochromeVue {
         placeRandomQuestionStations();
         placeRandomSurprise();
         
-        GameDetailsFromXMLScreen gameDetailsScreen = new GameDetailsFromXMLScreen();
-     // Set or get the level based on user interaction
 
         if (selectedLevel.equals("Medium")) {
             // Create QuestionDice using the factory
@@ -316,7 +312,6 @@ public class VuePartie extends MonochromeVue {
             panelEnCoursVueBas.setVisible(true);
         }
     }
- 
 //    public void updateDes(){
 //
 //		List<DeSixFaces> des = partie.getDeSixFaces();
@@ -400,5 +395,4 @@ public class VuePartie extends MonochromeVue {
 	public EnhancedDice getenhancedDiceGui2() {
 		return enhancedDice2;
 	}
-	
 }

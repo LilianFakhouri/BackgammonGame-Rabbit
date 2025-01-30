@@ -666,7 +666,6 @@ public class ControleurPartie implements Controller {
 								} else if (action == "Cancel") {
 
 								} else if (action == "Save") {
-									
 									try {
 										GestionDeSession gestion = GestionDeSession.getGestionDeSession();
 										gestion.sauvegarder();
@@ -731,15 +730,12 @@ public class ControleurPartie implements Controller {
 									}
 									((ControleurPrincipal) controleur).finSession();
 									controleur.retour();
-									
-							
 								} else if (action == "Cancel") {
 
 								} else if (action == "Save") {
 									try {
 										GestionDeSession gestion = GestionDeSession.getGestionDeSession();
 										gestion.sauvegarder();
-
 
 									} catch (IOException e1) {
 
