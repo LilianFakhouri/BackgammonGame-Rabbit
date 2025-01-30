@@ -32,8 +32,8 @@ public class GameDetailsFromXMLScreen extends JPanel {
 
         // Table Columns
         String[] columnNames = {
-            "Session ID", "State", "Max Games", "Current Player", "WinnerName", 
-            "Black Score", "White Score", 
+            "Session ID", "State", "Max Games", "Current Player", "Winner Name", 
+            "Black Score", "White Score"
         };
         tableModel = new DefaultTableModel(columnNames, 0);
         detailsTable = new JTable(tableModel);
@@ -102,19 +102,28 @@ public class GameDetailsFromXMLScreen extends JPanel {
                     String sessionId = sessionElement.getAttributeValue("id");
                     String state = sessionElement.getChildText("etatSession");
                     String maxGames = sessionElement.getChildText("idMaxPartie");
-                    String firstPlayer = sessionElement.getChildText("couleurJoueurAnciennePartie");
 
                     // Players and scores
                     Element joueursElement = sessionElement.getChild("joueurs");
                     Element joueurNoir = joueursElement.getChild("joueurNoir");
                     String blackId = joueurNoir != null ? joueurNoir.getAttributeValue("id") : "N/A";
                     String blackName = playerNames.getOrDefault(blackId, "Unknown Player");
-                    String blackScore = joueurNoir != null ? joueurNoir.getChildText("score") : "0";
+                    int blackScore = joueurNoir != null ? Integer.parseInt(joueurNoir.getChildText("score")) : 0;
 
                     Element joueurBlanc = joueursElement.getChild("joueurBlanc");
                     String whiteId = joueurBlanc != null ? joueurBlanc.getAttributeValue("id") : "N/A";
                     String whiteName = playerNames.getOrDefault(whiteId, "Unknown Player");
-                    String whiteScore = joueurBlanc != null ? joueurBlanc.getChildText("score") : "0";
+                    int whiteScore = joueurBlanc != null ? Integer.parseInt(joueurBlanc.getChildText("score")) : 0;
+
+                    // Determine the winner
+                    String winnerName;
+                    if (blackScore > whiteScore) {
+                        winnerName = blackName;
+                    } else if (whiteScore > blackScore) {
+                        winnerName = whiteName;
+                    } else {
+                        winnerName = "Nobody"; // If scores are equal
+                    }
 
                     // Partie details
                     Element partieElement = sessionElement.getChild("partie");
@@ -122,7 +131,7 @@ public class GameDetailsFromXMLScreen extends JPanel {
 
                     // Add data to the table, replacing IDs with names
                     tableModel.addRow(new Object[]{
-                        sessionId, state, maxGames, currentPlayer, blackName, blackScore, whiteScore, firstPlayer
+                        sessionId, state, maxGames, currentPlayer, winnerName, blackScore, whiteScore
                     });
 
                 } catch (Exception e) {
