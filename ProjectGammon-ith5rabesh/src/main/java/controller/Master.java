@@ -31,7 +31,7 @@ public class Master {
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
-
+//testt
     // Unregister an observer
     public void removeObserver(Observer observer) {
         observers.remove(observer);
