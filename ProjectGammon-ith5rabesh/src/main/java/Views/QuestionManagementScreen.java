@@ -5,6 +5,8 @@ import javax.swing.*;
 import GUI.MonochromeButton;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,10 +96,7 @@ public class QuestionManagementScreen extends JPanel {
         editButton.addActionListener(e -> editQuestion());
         deleteButton.addActionListener(e -> deleteQuestion());
 
-        JButton boutonRetour = new JButton("Return to Menu");
-        boutonRetour.setBounds(10, 10, 150, 30); // Adjust position and size
-        boutonRetour.addActionListener(e -> switchToMenu());
-        add(boutonRetour);
+      
         
         // Initialize the first question display
         updateQuestionDisplay();
@@ -130,30 +129,7 @@ public class QuestionManagementScreen extends JPanel {
         this.vueMenu = vueMenu; // Store the reference
         build();
     }
-    private void switchToMenu() {
-        System.out.println("Returning to VueMenu...");
 
-        // Get the parent JFrame
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        if (parentFrame != null) {
-            parentFrame.getContentPane().removeAll();;
-
-            // Add a new VueMenu as the content
-            parentFrame.setContentPane(vueMenu);
-            vueMenu.requestFocusInWindow();
-            
-            
-
-            // Revalidate and repaint to refresh the frame
-            parentFrame.invalidate();
-            parentFrame.validate();
-            parentFrame.repaint();
-
-            System.out.println("Switched back to VueMenu.");
-        } else {
-            System.err.println("Parent frame not found!");
-        }
-    }
 
 
 
@@ -249,7 +225,7 @@ public class QuestionManagementScreen extends JPanel {
 
         g2.dispose();
     }
-    
+    // Override to reopen VueMenu when closing
 
 
 

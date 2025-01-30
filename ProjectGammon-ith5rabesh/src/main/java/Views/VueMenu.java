@@ -1,14 +1,18 @@
 package Views;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import GUI.ManagerSignIn;
 import GUI.MonochromeButton;
 import GUI.MonochromeVue;
 
@@ -25,6 +29,7 @@ public class VueMenu extends MonochromeVue {
     private MonochromeButton boutonQuitter;
     private MonochromeButton HistoryOfGames;
     private MonochromeButton boutonQuestionsManagement;
+    private MonochromeButton Manager;
 
     private ImageIcon icon;
 
@@ -47,10 +52,10 @@ public class VueMenu extends MonochromeVue {
         JPanel conteneurgrid = new JPanel();
         JPanel conteneurbouton = new JPanel();
 
-        GridLayout gl = new GridLayout(7, 1); // 7 rows for the new button
+        GridLayout gl = new GridLayout(7, 1); // 7 rows for the existing buttons
 
         // Configure the grid container
-        conteneurgrid.setBounds(200, 150, 400, 450); // Adjust size for the extra button
+        conteneurgrid.setBounds(200, 150, 400, 450); // Adjust size for the central buttons
         conteneurgrid.setOpaque(false);
 
         // Configure the button container
@@ -59,7 +64,7 @@ public class VueMenu extends MonochromeVue {
         conteneurbouton.setPreferredSize(new Dimension(400, 400));
         conteneurbouton.setOpaque(false);
 
-        // Initialize buttons
+        // Initialize central buttons
         boutonNouvellePartie = new MonochromeButton("New Session");
         conteneurbouton.add(boutonNouvellePartie);
 
@@ -73,25 +78,49 @@ public class VueMenu extends MonochromeVue {
         conteneurbouton.add(boutonAide);
 
         boutonQuestionsManagement = new MonochromeButton("Questions Management");
-        conteneurbouton.add(boutonQuestionsManagement); // Add the new button
-        
+        conteneurbouton.add(boutonQuestionsManagement);
+
         HistoryOfGames = new MonochromeButton("HistoryOfGames");
         conteneurbouton.add(HistoryOfGames);
 
         boutonQuitter = new MonochromeButton("Quit");
         conteneurbouton.add(boutonQuitter);
 
+        // Add central button container
         add(conteneurgrid);
         conteneurgrid.add(conteneurbouton);
-        
-        
 
-        // Add ActionListener for Questions Management
-        
+        // Add ActionListeners for existing buttons
         boutonQuestionsManagement.addActionListener(e -> openQuestionManagementScreen());
         HistoryOfGames.addActionListener(e -> openGameHistoryScreen());
 
+        // Create a top-right panel for the Manager button
+        JPanel managerPanel = new JPanel();
+        managerPanel.setBounds(550, 20, 200, 60); // Position: Top-right corner
+        managerPanel.setOpaque(false); // Transparent background
+        managerPanel.setLayout((LayoutManager) new FlowLayout(FlowLayout.RIGHT)); // Align content to the right
+
+        // Create and add the Manager button
+        Manager = new MonochromeButton("Sign In");
+        Manager.setPreferredSize(new Dimension(120, 40)); // Adjust button size
+        managerPanel.add(Manager);
+
+        // Add ActionListener for the Manager button
+        Manager.addActionListener(e -> openSignInScreen());
+
+        // Add the Manager button panel to the screen
+        add(managerPanel);
     }
+
+    private void openSignInScreen() {
+        JFrame signInFrame = new JFrame("Manager Sign In");
+        signInFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        signInFrame.setSize(400, 300);
+        signInFrame.setLocationRelativeTo(null);
+        signInFrame.add(new ManagerSignIn(this));
+        signInFrame.setVisible(true);
+    }
+
     private void openQuestionManagementScreen() {
         System.out.println("Switching to Question Management Screen...");
 
