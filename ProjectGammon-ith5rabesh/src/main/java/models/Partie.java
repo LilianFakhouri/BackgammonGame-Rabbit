@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.jdom2.Element;
 
 import exceptions.TourNonJouableException;
@@ -408,24 +410,45 @@ public class Partie {
 	 * @param c
 	 * @return
 	 */
+
+
 	public List<Case> getCoupsPossibles(Case c) {
-		ArrayList<Case> caseReturn = new ArrayList<Case>() ;
-		Case caseArriver;
-			for (DeSixFaces de : deSixFaces) {
-				if (!de.isUtilise())
-					{
-						caseArriver = tablier.getCaseADistance(c, de);
-						if(isCoupPossible(c,caseArriver))
-						{
-							caseReturn.add(caseArriver);
-						}
-					}
-			}
-		
-		return caseReturn;
-		
-		
+	    ArrayList<Case> caseReturn = new ArrayList<>();
+	    Case caseArriver;
+	    boolean zeroDiceDisplayed = false; // To show message only once
+
+	    // Use an iterator to safely remove elements while iterating
+	    Iterator<DeSixFaces> iterator = deSixFaces.iterator();
+	    while (iterator.hasNext()) {
+	        DeSixFaces de = iterator.next();
+	        if (!de.isUtilise()) {
+	            int diceValue = de.getValeur();
+
+	            // ✅ Handle dice roll of 0: Show message and remove from the list
+	            if (diceValue == 0) {
+	                if (!zeroDiceDisplayed) { // Show message only once
+	                    JOptionPane.showMessageDialog(null, "The dice rolled 0, you will not move!", "Dice Roll", JOptionPane.INFORMATION_MESSAGE);
+	                    zeroDiceDisplayed = true;
+	                }
+	                iterator.remove(); // Remove the dice with 0 value so it is ignored
+	                continue; // Skip this dice
+	            }
+
+	            // ✅ Process valid dice rolls
+	            caseArriver = tablier.getCaseADistance(c, de);
+
+	            // ✅ Skip invalid moves
+	            if (caseArriver != null && caseArriver != c) {
+	                if (isCoupPossible(c, caseArriver)) {
+	                    caseReturn.add(caseArriver);
+	                }
+	            }
+	        }
+	    }
+	    return caseReturn;
 	}
+
+
 /**
  * 
  * @return

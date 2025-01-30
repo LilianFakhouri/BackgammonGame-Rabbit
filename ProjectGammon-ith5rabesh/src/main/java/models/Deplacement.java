@@ -47,6 +47,10 @@ public class Deplacement
 
 	    int positionDepart = caseDepart.getPosition();
 	    int positionArriver;
+	    
+	    if (diceValue==0) {
+	    	JOptionPane.showMessageDialog(null, "The value of the dice is 0, you will not move!", "Dice Roll", JOptionPane.WARNING_MESSAGE);
+	    }
 
 	    // Calculate target position based on dice value
 	    if (diceValue < 0) {

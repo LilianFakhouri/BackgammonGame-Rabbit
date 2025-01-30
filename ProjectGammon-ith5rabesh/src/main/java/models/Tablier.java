@@ -190,35 +190,38 @@ public class Tablier
 	 * @param cArrivee case arrivee
 	 * @return boolean
 	 */
-	public boolean isCoupPossible(Case cDepart, Case cArrivee)
-	{
-		if (cDepart.getNbDame() == 0)
-			return false;
-		
-		if(getCaseBarre(cDepart.getCouleurDame()).getNbDame() !=0 
-				&& (cDepart.getPosition() != 0 && cDepart.getCouleurDame() ==CouleurCase.BLANC 
-				|| cDepart.getPosition() != 25 && cDepart.getCouleurDame()==CouleurCase.NOIR ))
-				return false;
-		
-		if (cArrivee.isCaseVictoire()){
-			if (peutMarquerDame(cDepart.getCouleurDame()) 
-					&& cArrivee.getCouleurDame() == cDepart.getCouleurDame())
-				return true;
-			else
-				return false;
-		}
+	public boolean isCoupPossible(Case cDepart, Case cArrivee) {
+	    // ✅ Fix: Ensure `cArrivee` is not null before proceeding
+	    if (cArrivee == null) {
+	        System.out.println("Error: cArrivee is null. Move is not possible.");
+	        return false;
+	    }
 
-		if(cDepart.getCouleurDame() == cArrivee.getCouleurDame())
-			return true;
-		else
-		{
-			if (cArrivee.getNbDame()<=1)
-				return true;
-			else
-				return false;
-		}
+	    if (cDepart.getNbDame() == 0)
+	        return false;
+
+	    if (getCaseBarre(cDepart.getCouleurDame()).getNbDame() != 0 
+	            && (cDepart.getPosition() != 0 && cDepart.getCouleurDame() == CouleurCase.BLANC 
+	            || cDepart.getPosition() != 25 && cDepart.getCouleurDame() == CouleurCase.NOIR)) {
+	        return false;
+	    }
+
+	    if (cArrivee.isCaseVictoire()) {
+	        if (peutMarquerDame(cDepart.getCouleurDame()) 
+	                && cArrivee.getCouleurDame() == cDepart.getCouleurDame()) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+
+	    if (cDepart.getCouleurDame() == cArrivee.getCouleurDame()) {
+	        return true;
+	    } else {
+	        return cArrivee.getNbDame() <= 1;
+	    }
 	}
-	
+
 	public boolean siDameManger(Case cDepart, Case cArrivee)
 	{
 		if(cDepart.getCouleurDame() != cArrivee.getCouleurDame() 
@@ -358,28 +361,39 @@ public class Tablier
 	 * @param de Un de 
 	 * @return Case Arivee
 	 */
-	public Case getCaseADistance(Case c, DeSixFaces de)
-	{
-		if(c.getCouleurDame() == CouleurCase.BLANC){
-			int blacnADistance = c.getPosition()+de.getValeur();
-			if(blacnADistance <= 24){
-				return listeCase.get(blacnADistance-1);
-			}
-			else{
-				return caseVictoire.get(0);
-			}
-		}
-		else
-		{
-			int noirADistance =c.getPosition()-de.getValeur();
-			if(noirADistance >= 1){
-				return listeCase.get(noirADistance-1);
-			}
-			else{
-				return caseVictoire.get(1);
-			}
-		}	
+	public Case getCaseADistance(Case c, DeSixFaces de) {
+	    int diceValue = de.getValeur();
+
+	    // If dice roll is 0, return the same case (no movement)
+	    if (diceValue == 0) {
+	        System.out.println("Dice value is 0, no movement.");
+	        return c;
+	    }
+
+	    if (c.getCouleurDame() == CouleurCase.BLANC) {
+	        int blacnADistance = c.getPosition() + diceValue;
+
+	        // ✅ Prevent negative or out-of-bounds index
+	        if (blacnADistance - 1 < 0 || blacnADistance - 1 >= listeCase.size()) {
+	            System.out.println("Invalid index: " + (blacnADistance - 1));
+	            return null; // Return null instead of crashing
+	        }
+
+	        return listeCase.get(blacnADistance - 1);
+	    } else {
+	        int noirADistance = c.getPosition() - diceValue;
+
+	        // ✅ Prevent negative or out-of-bounds index
+	        if (noirADistance - 1 < 0 || noirADistance - 1 >= listeCase.size()) {
+	            System.out.println("Invalid index: " + (noirADistance - 1));
+	            return null; // Return null instead of crashing
+	        }
+
+	        return listeCase.get(noirADistance - 1);
+	    }
 	}
+
+
 	
     /**
      * Verifier dans CaseBarre (Noir ou Blanc) il y a des damns
