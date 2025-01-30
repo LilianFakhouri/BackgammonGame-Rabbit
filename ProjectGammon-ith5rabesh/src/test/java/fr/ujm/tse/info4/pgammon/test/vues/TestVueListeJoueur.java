@@ -19,7 +19,7 @@ public class TestVueListeJoueur {
 		
 		tmp.ajouter("DONG Chuan",Avatar.FLEUR.getPath(),NiveauAssistant.NON_UTILISE);
 		tmp.ajouter("BONNETTO Benjamin",Avatar.CHAT_JAUNE.getPath(),NiveauAssistant.COMPLET);
-		tmp.ajouter("FRANCON Adrien",Avatar.LION.getPath(),NiveauAssistant.COMPLET);
+		tmp.ajouter("FRANCON Adrien",Avatar.ROSE.getPath(),NiveauAssistant.COMPLET);
 		tmp.ajouter("POTHELUNE Jean-Michel",Avatar.COCHON_D_INDE.getPath(),NiveauAssistant.SIMPLE);
 		tmp.ajouter("DONG Chuan",Avatar.ESCARGOTS.getPath(),NiveauAssistant.NON_UTILISE);
 

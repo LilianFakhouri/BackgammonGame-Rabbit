@@ -5,25 +5,25 @@ import javax.swing.ImageIcon;
 
 public enum Avatar{
 	//aiham
-	DEFAULT("default.png"),
-	RENARD("asleep_renard.png"),
-	CHOUETTE("chouette.png"),
-	COCHON_D_INDE("choupi.png"),
-	YEUX_ROUGES("dark_eyes.png"),
-	ESCARGOTS("escargot.png"),
-	FLEUR("fleur.png"),
-	GOUTES("goutes.png"),
-	CHATON("mini.png"),
-	CHAT_TETE("miou.png"),
-	MONGOLFIERERS("Mongolfieres.png"),
-	LUNE("night.png"),
-	LION("old_lion.png"),
-	CHAT_PATAPOUF("Patapouf.png"),
-	OISEAU("piou.png"),
-	ROSE("rose.png"),
-	CHEVAL("wind_horse.png"),
-	LOUP("wolf.png"),
-	CHAT_JAUNE("yellow_cat.png");
+	DEFAULT("rabbit1.jpg"),
+	RENARD("rabbit10.jfif"),
+	CHOUETTE("rabbit11.webp"),
+	COCHON_D_INDE("rabbit12.jpg"),
+	YEUX_ROUGES("rabbit13.jpg"),
+	ESCARGOTS("rabbit14.jpg"),
+	FLEUR("rabbit15.webp"),
+	GOUTES("rabbit16.webp"),
+	CHATON("rabbit17.webp"),
+	CHAT_TETE("rabbit18.jpg"),
+	MONGOLFIERERS("rabbit19.jpg"),
+	LUNE("rabbit2.jfif"),
+	LION("rabbit3.jfif"),
+	CHAT_PATAPOUF("rabbit4.jpg"),
+	OISEAU("rabbit5.jfif"),
+	ROSE("rabbit6.jpg"),
+	CHEVAL("rabbit7.webp"),
+	LOUP("rabbit8.jfif"),
+	CHAT_JAUNE("rabbit9.jpg");
 	
 	private final String path;
 	private final ImageIcon icon;
