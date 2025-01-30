@@ -120,6 +120,7 @@ public class VueMenu extends MonochromeVue {
         signInFrame.add(new ManagerSignIn(this));
         signInFrame.setVisible(true);
     }
+    //test
 
     private void openQuestionManagementScreen() {
         System.out.println("Switching to Question Management Screen...");
