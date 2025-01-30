@@ -16,4 +16,4 @@ public abstract class AbstractTemplatePlayerTurn {
     protected abstract void applySpecialRules();
     protected abstract void endTurn();
 }
-
+//test aiham
