@@ -77,8 +77,7 @@ public class VueMenu extends MonochromeVue {
         boutonAide = new MonochromeButton("Rules");
         conteneurbouton.add(boutonAide);
 
-        boutonQuestionsManagement = new MonochromeButton("Questions Management");
-        conteneurbouton.add(boutonQuestionsManagement);
+        
 
         HistoryOfGames = new MonochromeButton("HistoryOfGames");
         conteneurbouton.add(HistoryOfGames);
@@ -91,7 +90,7 @@ public class VueMenu extends MonochromeVue {
         conteneurgrid.add(conteneurbouton);
 
         // Add ActionListeners for existing buttons
-        boutonQuestionsManagement.addActionListener(e -> openQuestionManagementScreen());
+       
         HistoryOfGames.addActionListener(e -> openGameHistoryScreen());
 
         // Create a top-right panel for the Manager button
