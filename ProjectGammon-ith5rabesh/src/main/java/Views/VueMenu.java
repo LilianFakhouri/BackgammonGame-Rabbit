@@ -81,6 +81,7 @@ public class VueMenu extends MonochromeVue {
 
         HistoryOfGames = new MonochromeButton("HistoryOfGames");
         conteneurbouton.add(HistoryOfGames);
+        
 
         boutonQuitter = new MonochromeButton("Quit");
         conteneurbouton.add(boutonQuitter);
@@ -90,7 +91,7 @@ public class VueMenu extends MonochromeVue {
         conteneurgrid.add(conteneurbouton);
 
         // Add ActionListeners for existing buttons
-        HistoryOfGames.addActionListener(e -> openGameHistoryScreen());
+        HistoryOfGames.addActionListener(e -> openGameDetailsScreen());
 
         // Create a top-right panel for the Manager button
         JPanel managerPanel = new JPanel();
@@ -149,6 +150,14 @@ public class VueMenu extends MonochromeVue {
         gameHistoryFrame.setLocationRelativeTo(null); // Center the frame
         gameHistoryFrame.add(new GameHistoryScreen(this)); // Pass VueMenu reference
         gameHistoryFrame.setVisible(true);
+    }
+    private void openGameDetailsScreen() {
+        JFrame gameDetailsFrame = new JFrame("Game Details From XML");
+        gameDetailsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameDetailsFrame.setSize(900, 600); // Adjust size for the new screen
+        gameDetailsFrame.setLocationRelativeTo(null); // Center the frame
+        gameDetailsFrame.add(new GameDetailsFromXMLScreen()); // Add GameDetailsFromXMLScreen
+        gameDetailsFrame.setVisible(true); // Display the frame
     }
 
 
