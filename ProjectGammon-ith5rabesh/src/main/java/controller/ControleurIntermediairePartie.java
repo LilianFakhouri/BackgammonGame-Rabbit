@@ -30,7 +30,7 @@ public class ControleurIntermediairePartie implements Controller{
 	private CouleurCase joueurEnCourDeModification;
 	protected ControleurListeJoueur controleurListeJoueur;
 	
-	
+	//test
 	
 	public ControleurIntermediairePartie(boolean isNouvellePartie,ControleurPrincipal controleurPrincipal)
 	{
