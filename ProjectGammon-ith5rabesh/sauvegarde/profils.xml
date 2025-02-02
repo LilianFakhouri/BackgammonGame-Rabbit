@@ -48,4 +48,28 @@
       <tempsJeu>0.0</tempsJeu>
     </statistiqueJoueur>
   </joueurs>
+  <joueurs id="13071">
+    <pseudo />
+    <imageSource />
+    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <statistiqueJoueur>
+      <partiejoue>0</partiejoue>
+      <nbVictoires>0</nbVictoires>
+      <nbDefaites>0</nbDefaites>
+      <nbrDePartieContreJoueur />
+      <tempsJeu>0.0</tempsJeu>
+    </statistiqueJoueur>
+  </joueurs>
+  <joueurs id="13338">
+    <pseudo>111</pseudo>
+    <imageSource />
+    <niveauAssistant>NON_UTILISE</niveauAssistant>
+    <statistiqueJoueur>
+      <partiejoue>0</partiejoue>
+      <nbVictoires>0</nbVictoires>
+      <nbDefaites>0</nbDefaites>
+      <nbrDePartieContreJoueur />
+      <tempsJeu>0.0</tempsJeu>
+    </statistiqueJoueur>
+  </joueurs>
 </profils>
