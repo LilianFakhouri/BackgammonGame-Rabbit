@@ -3,6 +3,9 @@ package GUI;
 import Views.VueTablier;
 
 import javax.swing.*;
+
+import Utils.SoundPlayer;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Point2D;
@@ -78,16 +81,21 @@ public class dicerollscreen extends JFrame {
     }
 
 
+
     private void takeTurn() {
         if (currentPlayer == 1) {
+        	SoundPlayer.playSound("/Sounds/dice_roll.wav.wav");
             player1Roll = player1DicePanel.rollDice();
             resultLabel.setText(player2Name + ", it's your turn to roll!");
             currentPlayer = 2;
         } else if (currentPlayer == 2) {
+        	SoundPlayer.playSound("/Sounds/dice_roll.wav.wav");
             player2Roll = player2DicePanel.rollDice();
             determineWinner();
         }
     }
+
+
 
     private void determineWinner() {
         if (player1Roll > player2Roll) {

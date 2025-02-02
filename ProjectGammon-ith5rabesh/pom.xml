@@ -43,6 +43,12 @@
     <artifactId>javax.mail</artifactId>
     <version>1.6.2</version>
 </dependency>
+<dependency>
+    <groupId>javazoom</groupId>
+    <artifactId>jlayer</artifactId>
+    <version>1.0.1</version>
+</dependency>
+
 
 
     <!-- JSON-Simple Dependency -->
@@ -74,6 +80,9 @@
           <include>**/*</include>
         </includes>
       </resource>
+      <resource>
+            <directory>src/main/resources</directory>
+        </resource>
     </resources>
     <plugins>
       <!-- Maven Compiler Plugin -->
