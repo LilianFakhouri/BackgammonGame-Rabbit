@@ -12,6 +12,7 @@ import GUI.CaseButton;
 import GUI.QuestionAnswerScreen;
 import GUI.QuestionStationBarr;
 import GUI.TriangleCaseButton;
+import Utils.SoundPlayer;
 import models.Case;
 import models.DeSixFaces;
 import models.Horloge;
@@ -119,6 +120,7 @@ public class ControleurTablier implements Controller{
 	                            // Check if the player landed on a surprise station
 	                            if (caseButton.hasSurpriseStation()) {
 	                                vuePartie.afficherFenetreDemande("Surprise!", "You landed on a surprise station! Launch the dice again");
+	                                SoundPlayer.playSound("/Sounds/surprise-sound.wav");
 	                                vueTablier.clearSurpriseStation(caseButton);
 	                                partie.lancerDes(selectedLevel);
 	                                return; // Exit early for surprise station handling

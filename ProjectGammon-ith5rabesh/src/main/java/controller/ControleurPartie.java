@@ -28,6 +28,7 @@ import javax.swing.Timer;
 
 import org.jdom2.JDOMException;
 
+import Utils.SoundPlayer;
 import models.Case;
 import models.CouleurCase;
 import models.Coup;
@@ -457,6 +458,7 @@ public class ControleurPartie implements Controller {
 	        public void mouseReleased(MouseEvent arg0) {
 	            if (!session.getPartieEnCours().isPartieFini()) {
 	                String selectedLevel = vuePartie.getSelectedLevel();
+	                SoundPlayer.playSound("/Sounds/dice_roll.wav.wav");
 
 	                // Roll standard dice based on the level
 	                session.getPartieEnCours().lancerDes(selectedLevel);
