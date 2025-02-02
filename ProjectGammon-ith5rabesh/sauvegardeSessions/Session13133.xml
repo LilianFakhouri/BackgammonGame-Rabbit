@@ -1,34 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session13508>
-  <session id="13508">
+<Session13133>
+  <session id="13133">
     <etatSession>SETUP</etatSession>
     <idMaxPartie>2</idMaxPartie>
     <couleurJoueurAnciennePartie>null</couleurJoueurAnciennePartie>
     <joueurs>
-      <joueurNoir id="1928">
+      <joueurNoir id="13163">
         <score>0</score>
       </joueurNoir>
-      <joueurBlanc id="139680">
+      <joueurBlanc id="1918">
         <score>0</score>
       </joueurBlanc>
     </joueurs>
     <parametres>
       <secondesParTour>30000</secondesParTour>
-    <nbrPartieGagnante>3</nbrPartieGagnante>
-    <utiliseVideau>1</utiliseVideau>
-    <level>Hard</level>
-    </parametres>
-        <parametres>
-      <secondesParTour>30000</secondesParTour>
-    <nbrPartieGagnante>3</nbrPartieGagnante>
-    <utiliseVideau>1</utiliseVideau>
-    <level>Easy</level>
-    </parametres>
-           <parametres>
-      <secondesParTour>30000</secondesParTour>
-    <nbrPartieGagnante>3</nbrPartieGagnante>
-    <utiliseVideau>1</utiliseVideau>
-    <level>Medium</level>
+      <nbrPartieGagnante>3</nbrPartieGagnante>
+      <utiliseVideau>1</utiliseVideau>
     </parametres>
     <partie>
       <videau>1</videau>
@@ -38,12 +25,12 @@
       <premierJoueur>NOIR</premierJoueur>
       <deSixFaces>
         <deSixFace>
-          <valeur>5</valeur>
-          <isUtilise>yes</isUtilise>
+          <valeur>4</valeur>
+          <isUtilise>no</isUtilise>
           <couleurDe>NOIR</couleurDe>
         </deSixFace>
         <deSixFace>
-          <valeur>6</valeur>
+          <valeur>1</valeur>
           <isUtilise>no</isUtilise>
           <couleurDe>NOIR</couleurDe>
         </deSixFace>
@@ -59,8 +46,8 @@
             <nbrDame>0</nbrDame>
           </Case>
           <Case id="3">
-            <couleurDame>NOIR</couleurDame>
-            <nbrDame>1</nbrDame>
+            <couleurDame>VIDE</couleurDame>
+            <nbrDame>0</nbrDame>
           </Case>
           <Case id="4">
             <couleurDame>VIDE</couleurDame>
@@ -80,7 +67,7 @@
           </Case>
           <Case id="8">
             <couleurDame>NOIR</couleurDame>
-            <nbrDame>2</nbrDame>
+            <nbrDame>3</nbrDame>
           </Case>
           <Case id="9">
             <couleurDame>VIDE</couleurDame>
@@ -173,25 +160,19 @@
           <couleurJoueur>NOIR</couleurJoueur>
           <deSixFaces>
             <deSixFace>
-              <valeur>5</valeur>
-              <isUtilise>yes</isUtilise>
+              <valeur>4</valeur>
+              <isUtilise>no</isUtilise>
               <couleurDe>NOIR</couleurDe>
             </deSixFace>
             <deSixFace>
-              <valeur>6</valeur>
+              <valeur>1</valeur>
               <isUtilise>no</isUtilise>
               <couleurDe>NOIR</couleurDe>
             </deSixFace>
           </deSixFaces>
-          <deplacements>
-            <deplacement>
-              <caseDepart>8</caseDepart>
-              <caseArriver>3</caseArriver>
-              <siCaseBattue>false</siCaseBattue>
-            </deplacement>
-          </deplacements>
+          <deplacements />
         </tour>
       </historiqueToursJoueur>
     </partie>
   </session>
-</Session13508>
+</Session13133>
