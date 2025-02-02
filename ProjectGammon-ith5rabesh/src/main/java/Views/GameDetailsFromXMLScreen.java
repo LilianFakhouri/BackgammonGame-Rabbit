@@ -133,13 +133,21 @@ public class GameDetailsFromXMLScreen extends JPanel {
                     } else {
                         winnerName = "Nobody"; // If scores are equal
                     }
+                    String player2Name = "Unknown";
+                    if (joueursElement != null) {
+                        Element joueurBlanc1 = joueursElement.getChild("joueurBlanc");
+                        if (joueurBlanc1 != null) {
+                            String player2Id = joueurBlanc1.getAttributeValue("id");
+                            player2Name = playerNames.getOrDefault(player2Id, "Unknown Player");
+                        }
+                    }
 
                     // Current player
                     String currentPlayer = sessionElement.getChildText("joueurEnCour");
 
                     // Add data to the table
                     tableModel.addRow(new Object[]{
-                        sessionId, state, maxGames, currentPlayer, winnerName, blackScore, whiteScore, level
+                        sessionId, state, maxGames, player2Name, winnerName, blackScore, whiteScore, level
                     });
 
                 } catch (Exception e) {
@@ -150,7 +158,7 @@ public class GameDetailsFromXMLScreen extends JPanel {
     }
 
 
-
+   
     private void switchToMenu() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         if (parentFrame != null) {
