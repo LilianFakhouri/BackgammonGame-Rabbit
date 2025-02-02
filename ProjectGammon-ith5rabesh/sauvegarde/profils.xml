@@ -5,8 +5,8 @@
     <imageSource />
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
-      <partiejoue>0</partiejoue>
-      <nbVictoires>0</nbVictoires>
+      <partiejoue>1</partiejoue>
+      <nbVictoires>1</nbVictoires>
       <nbDefaites>0</nbDefaites>
       <nbrDePartieContreJoueur />
       <tempsJeu>0.0</tempsJeu>
@@ -41,9 +41,9 @@
     <imageSource>images/avatars/chouette.png</imageSource>
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
-      <partiejoue>0</partiejoue>
+      <partiejoue>1</partiejoue>
       <nbVictoires>0</nbVictoires>
-      <nbDefaites>0</nbDefaites>
+      <nbDefaites>1</nbDefaites>
       <nbrDePartieContreJoueur />
       <tempsJeu>0.0</tempsJeu>
     </statistiqueJoueur>
