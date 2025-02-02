@@ -101,6 +101,7 @@ public class ControleurTablier implements Controller{
 
 	                            // Check if the player has landed on a Question Station
 	                            if (caseButton.hasQuestionStation()) {
+	                            	SoundPlayer.playSound("/Sounds/question-station.wav");
 	                                System.out.println("Player has landed on a Question Station!");
 
 	                                // Retrieve the question from the question station
