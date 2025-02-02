@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session27330>
-  <session id="27330">
+<Session13133>
+  <session id="13133">
     <etatSession>SETUP</etatSession>
-    <idMaxPartie>3</idMaxPartie>
-    <couleurJoueurAnciennePartie>NOIR</couleurJoueurAnciennePartie>
+    <idMaxPartie>2</idMaxPartie>
+    <couleurJoueurAnciennePartie>null</couleurJoueurAnciennePartie>
     <joueurs>
-      <joueurNoir id="139667">
-        <score>1</score>
+      <joueurNoir id="13163">
+        <score>0</score>
       </joueurNoir>
-      <joueurBlanc id="1928">
+      <joueurBlanc id="1918">
         <score>0</score>
       </joueurBlanc>
     </joueurs>
@@ -16,15 +16,25 @@
       <secondesParTour>30000</secondesParTour>
       <nbrPartieGagnante>3</nbrPartieGagnante>
       <utiliseVideau>1</utiliseVideau>
-        <level>Medium</level>
     </parametres>
     <partie>
       <videau>1</videau>
-      <joueurEnCour>BLANC</joueurEnCour>
-      <idPartie>3</idPartie>
+      <joueurEnCour>NOIR</joueurEnCour>
+      <idPartie>2</idPartie>
       <deUtiliser>0</deUtiliser>
-      <premierJoueur>BLANC</premierJoueur>
-      <deSixFaces />
+      <premierJoueur>NOIR</premierJoueur>
+      <deSixFaces>
+        <deSixFace>
+          <valeur>4</valeur>
+          <isUtilise>no</isUtilise>
+          <couleurDe>NOIR</couleurDe>
+        </deSixFace>
+        <deSixFace>
+          <valeur>1</valeur>
+          <isUtilise>no</isUtilise>
+          <couleurDe>NOIR</couleurDe>
+        </deSixFace>
+      </deSixFaces>
       <tablier>
         <Cases>
           <Case id="1">
@@ -145,7 +155,24 @@
           </CaseBar>
         </CaseBars>
       </tablier>
-      <historiqueToursJoueur />
+      <historiqueToursJoueur>
+        <tour>
+          <couleurJoueur>NOIR</couleurJoueur>
+          <deSixFaces>
+            <deSixFace>
+              <valeur>4</valeur>
+              <isUtilise>no</isUtilise>
+              <couleurDe>NOIR</couleurDe>
+            </deSixFace>
+            <deSixFace>
+              <valeur>1</valeur>
+              <isUtilise>no</isUtilise>
+              <couleurDe>NOIR</couleurDe>
+            </deSixFace>
+          </deSixFaces>
+          <deplacements />
+        </tour>
+      </historiqueToursJoueur>
     </partie>
   </session>
-</Session27330>
+</Session13133>
