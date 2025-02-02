@@ -2,7 +2,7 @@
 <profils>
   <joueurs id="139667">
     <pseudo>test1</pseudo>
-    <imageSource />
+    <imageSource>images/avatars/rabbit19.jpg</imageSource>
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>1</partiejoue>
@@ -14,7 +14,7 @@
   </joueurs>
   <joueurs id="139680">
     <pseudo>test2</pseudo>
-    <imageSource>images/avatars/choupi.png</imageSource>
+    <imageSource>images/avatars/rabbit18.jpg</imageSource>
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
@@ -26,7 +26,7 @@
   </joueurs>
   <joueurs id="1918">
     <pseudo>Nadeen</pseudo>
-    <imageSource>images/avatars/fleur.png</imageSource>
+    <imageSource>images/avatars/rabbit4.jpg</imageSource>
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>0</partiejoue>
@@ -38,7 +38,7 @@
   </joueurs>
   <joueurs id="1928">
     <pseudo>Lilian</pseudo>
-    <imageSource>images/avatars/chouette.png</imageSource>
+    <imageSource>images/avatars/rabbit6.jpg</imageSource>
     <niveauAssistant>SIMPLE</niveauAssistant>
     <statistiqueJoueur>
       <partiejoue>1</partiejoue>
