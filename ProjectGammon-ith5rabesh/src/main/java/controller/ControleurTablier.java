@@ -91,7 +91,7 @@ public class ControleurTablier implements Controller{
 	                                vueTablier.setPossibles(partie.getCoupsPossibles(caseButton.getCase()));
 	                            }
 	                        } else if (tablier.isDameDansCaseBarre(partie.getJoueurEnCour())) {
-	                            vuePartie.afficherFenetreDemande("Attention!", "Sortez les dames battues avant de jouer.");
+	                            vuePartie.afficherFenetreDemande("Attention!", "Take out the beaten pieces before playing.");
 	                        }
 	                    } else if (vueTablier.getCandidat() != null) {
 	                        if (partie.jouerCoup(vueTablier.getCandidat().getCase(), caseButton.getCase())) {
