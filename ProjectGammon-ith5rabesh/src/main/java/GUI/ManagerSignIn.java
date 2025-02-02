@@ -14,7 +14,7 @@ public class ManagerSignIn extends JPanel {
         this.vueMenu = vueMenu;
         setLayout(new GridBagLayout());
      // Set background color
-        setBackground(Color.BLACK);
+        setBackground(Color.DARK_GRAY);
 
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(15);
