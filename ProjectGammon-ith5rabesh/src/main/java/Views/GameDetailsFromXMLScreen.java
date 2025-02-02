@@ -32,8 +32,8 @@ public class GameDetailsFromXMLScreen extends JPanel {
 
         // Table Columns
         String[] columnNames = {
-            "Session ID", "State", "Max Games", "Current Player", "Winner Name", 
-            "Black Score", "White Score"
+            "Session ID", "State", "Max Games", " Player 2", "Winner Name", 
+            "Black Score", "White Score","Level"
         };
         tableModel = new DefaultTableModel(columnNames, 0);
         detailsTable = new JTable(tableModel);
@@ -84,10 +84,9 @@ public class GameDetailsFromXMLScreen extends JPanel {
 
     private void loadGameDetailsFromXML() {
         tableModel.setRowCount(0); // Clear existing rows
+        Map<String, String> playerNames = loadPlayerNames(); // Load player names
 
-        Map<String, String> playerNames = loadPlayerNames(); // Load player names from profils.xml
-
-        File folder = new File("sauvegardeSessions"); // Path to your XML files folder
+        File folder = new File("sauvegardeSessions"); // Path to XML files folder
         File[] files = folder.listFiles((dir, name) -> name.endsWith(".xml")); // Filter XML files
 
         if (files != null) {
@@ -102,6 +101,16 @@ public class GameDetailsFromXMLScreen extends JPanel {
                     String sessionId = sessionElement.getAttributeValue("id");
                     String state = sessionElement.getChildText("etatSession");
                     String maxGames = sessionElement.getChildText("idMaxPartie");
+
+                    // Extract or determine the level
+                    String level = "Medium"; // Default value
+                    Element parametres = sessionElement.getChild("parametres");
+                    if (parametres != null) {
+                        level = parametres.getChildText("level");
+                        if (level == null || level.isEmpty()) {
+                            level = "Easy"; // Default value if not specified
+                        }
+                    }
 
                     // Players and scores
                     Element joueursElement = sessionElement.getChild("joueurs");
@@ -125,13 +134,12 @@ public class GameDetailsFromXMLScreen extends JPanel {
                         winnerName = "Nobody"; // If scores are equal
                     }
 
-                    // Partie details
-                    Element partieElement = sessionElement.getChild("partie");
-                    String currentPlayer = partieElement != null ? partieElement.getChildText("joueurEnCour") : "UNKNOWN";
+                    // Current player
+                    String currentPlayer = sessionElement.getChildText("joueurEnCour");
 
-                    // Add data to the table, replacing IDs with names
+                    // Add data to the table
                     tableModel.addRow(new Object[]{
-                        sessionId, state, maxGames, currentPlayer, winnerName, blackScore, whiteScore
+                        sessionId, state, maxGames, currentPlayer, winnerName, blackScore, whiteScore, level
                     });
 
                 } catch (Exception e) {
@@ -140,6 +148,8 @@ public class GameDetailsFromXMLScreen extends JPanel {
             }
         }
     }
+
+
 
     private void switchToMenu() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
